@@ -147,6 +147,9 @@
 <br>
 
 대표 작성자 : SysAI Lab 함규식
+<br>
 E-mail : gsham@edu.hanbat.ac.kr
+<br>
 Phone : 010-9946-9297
+<br>
 K-talk : zzanggyusik
