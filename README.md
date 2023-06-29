@@ -144,6 +144,9 @@
 4. 충돌 방지를 위해 다른 사람이 작성한 내용은 수정하지 않는다.
 5. 깃허브 사용중 충돌 발생및 기타 오류 발생시 프로젝트 관리자(함규식, 김현기)에게 물어본다.
 
+<br>
 
-
-대표 작성자 : Sysailab 함규식
+대표 작성자 : SysAI Lab 함규식
+E-mail : gsham@edu.hanbat.ac.kr
+Phone : 010-9946-9297
+K-talk : zzanggyusik
