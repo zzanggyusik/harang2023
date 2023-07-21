@@ -1,0 +1,52 @@
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+        	alert("{{messages[-1]}}")
+		</script>
+    {% endif %}
+{% endwith %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+		{% if login_state %}
+			메인
+		{% else %}
+			홈화면
+		{% endif %}
+	</title>
+</head>
+<body>
+    <h2>{{ title }}</h2>
+
+    {% if login_state %}
+        <p>메인페이지 입니다.</p>
+        <input type="button" value="logout" onClick="window.location.href='/logout'">
+    {% else %}
+        <table>
+            <form name="form" method="POST" action="/">
+                <thead>
+                    <tr>
+                        <th colspan="2"><caption>회원 로그인</caption></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>아이디</td>
+                        <td><input type="text" name="username" placeholder="ID"></td>
+                    </tr>
+                    <tr>
+                        <td>비밀번호</td>
+                        <td><input type="password" name="password" placeholder="Password"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Login"></td>
+                        <td><input type="button" value="Register" onClick="location.href='/register'"></td>
+                    </tr>
+                </tbody>
+            </form>
+        </table>
+    {% endif %}
+</body>
+</html>
