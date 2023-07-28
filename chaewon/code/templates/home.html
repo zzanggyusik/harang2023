@@ -1,8 +1,9 @@
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         <script>
-        	alert("{{messages[-1]}}")
-		</script>
+            // 마지막으로 flash 된 메시지로 알림
+            alert("{{messages[-1]}}")
+        </script>
     {% endif %}
 {% endwith %}
 
@@ -10,25 +11,36 @@
 <html>
 <head>
     <title>
-		{% if login_state %}
-			메인
-		{% else %}
-			홈화면
-		{% endif %}
-	</title>
+        {% if login_state %}
+            메인
+        {% else %}
+            홈화면
+        {% endif %}
+    </title>
 </head>
 <body>
-    <h2>{{ title }}</h2>
-
     {% if login_state %}
+        <!-- 사용자가 로그인한 상태 -->
+        <h3>{{ login_time }}</h3>
+        <h3>{{ username }}</h3>
+
+        <!-- 사용자의 모든 벨트를 순회하며 표시 -->
+        {% for belt in belts %}
+            <h3>cb{{ belt.belt_id }}</h3>
+            <img src="{{ url_for('static', filename=belt.image_path) }}" alt="cb{{ loop.index }} image" width="200" height="200">
+        {% endfor %}
+
         <p>메인페이지 입니다.</p>
         <input type="button" value="logout" onClick="window.location.href='/logout'">
     {% else %}
+        <!-- 사용자가 로그인하지 않은 상태 -->
         <table>
             <form name="form" method="POST" action="/">
                 <thead>
                     <tr>
-                        <th colspan="2"><caption>회원 로그인</caption></th>
+                        <th colspan="2">
+                            <caption>회원 로그인</caption>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
