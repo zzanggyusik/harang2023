@@ -55,10 +55,10 @@ Register
         var beltField = document.createElement('div');
         beltField.className = 'input-field';
         var label = document.createElement('label');
-        label.textContent = 'Conveyor Belt';
         var input = document.createElement('input');
         input.type = 'text';
         input.name = 'belt[]';
+        input.placeholder = 'Conveyor Belt';  
         beltField.appendChild(label);
         beltField.appendChild(input);
         document.getElementById('belt-field-container').appendChild(beltField);
