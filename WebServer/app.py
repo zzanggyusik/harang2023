@@ -107,6 +107,23 @@ def main_login():
         return render_template('main_login.html', user=user, belt_images=belt_images)
     return redirect(url_for('main_unlogin'))
 
+# @app.route('/logout')
+# def logout():
+#     user_id = session['user']['_id']
+#     db.User.update_one({'_id': user_id}, {'$set': {'login_state': False}})  
+#     session.pop('user', None)  
+#     return redirect(url_for('main_unlogin'))  
+
+# @app.route('/upload', methods=['GET'])
+# def upload():
+#     if 'user' in session:  
+#         user = session['user']
+#         return render_template('upload.html', user=user)
+#     return redirect(url_for('main_unlogin'))
+
+# if __name__ == "__main__":
+#     app.run(host='0.0.0.0', port=5050, debug=True)
+
 @app.route('/logout')
 def logout():
     user_id = session['user']['_id']
