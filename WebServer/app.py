@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+from flask import Flask, render_template, request
+import zmq
+=======
 from flask import Flask, redirect, request, url_for, render_template, jsonify, session
 from werkzeug.utils import secure_filename
 from pymongo import MongoClient
@@ -140,3 +144,4 @@ def upload():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5050, debug=True)
+>>>>>>> develop
