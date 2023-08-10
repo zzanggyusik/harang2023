@@ -12,11 +12,11 @@
 </head>
 
 <body>
-    <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" class="img-fluid mb-3">
+    <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" class="img-fluid mb-3 mt-4 ml-4">
 
-    <div style="margin: 20px;">
+    <div class="content-container">
         {% block content %}{% endblock %}
-    </div>
+    </div>    
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
