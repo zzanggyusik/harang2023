@@ -1,14 +1,14 @@
 .belt-cards-container {
     display: flex;
     flex-wrap: wrap; 
-    justify-content: space-between;
 }
 
 .belt-card {
-    flex: 0 0 calc(25% - 20px);
+    flex: 0 0 calc(25% - 1%);
     position: relative;
     text-align: left;
     margin-bottom: 20px;
+    margin-right: 1%; 
 }
 
 .belt-card img {
