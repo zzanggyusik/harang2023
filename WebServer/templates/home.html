@@ -4,24 +4,26 @@
 
 {% block content %}
 
+<link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet">
+
 {% if login_state %}
     <h3>{{ login_time }}</h3>
     <h3>{{ username }}</h3>
 
     <div class="d-flex flex-wrap flex-md-nowrap">
         {% for belt in belts %}
-            <div class="mr-3 mb-3">
+            <div class="belt-container">
                 <h3>cb{{ belt.belt_id }}</h3>
-                <img src="{{ url_for('static', filename=belt.image_path) }}" alt="cb{{ loop.index }} image" width="200" height="200">
+                <img src="{{ url_for('static', filename=belt.image_path) }}" alt="cb{{ loop.index }} image" class="belt-image">
             </div>
         {% endfor %}
     </div>  
 
-    <a href="/logout" class="btn btn-danger mt-3">Logout</a>
+    <a href="/logout" class="btn btn-danger logout-button">Logout</a>
 
 {% else %}
     <div class="d-flex justify-content-center">
-        <form action="/" method="post" class="text-center col-md-3">
+        <form action="/" method="post" class="text-center login-form">
             <h3 class="mb-4">Log in</h3> 
 
             <div class="form-group">
