@@ -9,7 +9,7 @@
 # Flask Config    
 FLASK_HOST = "0.0.0.0"
 FLASK_PORT = 5000    
-FLASK_SECRET_KEY = "ycw625!!"  
+FLASK_SECRET_KEY = "harang123!!"  
 
 # MongoDB Config
 MONGODB_IP = "localhost"
