@@ -11,7 +11,8 @@ class DBManager:
 
     # 사용자 추가
     def create_user(self, user_data):
-        return self.user_db.insert_one(user_data)
+        result = self.user_db.insert_one(user_data)
+        return result.inserted_id
 
     # 사용자 고유 ID로 사용자 조회
     def find_user_by_id(self, user_id):
@@ -29,6 +30,7 @@ class DBManager:
 
     # 벨트 추가
     def create_belt(self, belt_data):
+        print(belt_data)  # 디버깅을 위해 belt_data 내용 확인
         return self.belt_db.insert_one(belt_data)
 
     # 벨트 고유 ID로 벨트 조회
@@ -49,9 +51,10 @@ class DBManager:
         belt_coll = self.belt_db
         belt_docs = belt_coll.find({'user_id': user_id})
         for belt_doc in belt_docs:
-            belt_doc['images'].sort(key=lambda x: parse(x['time_uploaded']), reverse=True)
-            belts_data.append({
-                'belt_id': belt_doc['_id'],
-                'image_path': belt_doc['images'][0]['image_path']
-            })
+            if belt_doc['images']: # 이미지 리스트가 비어있지 않은지 확인
+                belt_doc['images'].sort(key=lambda x: parse(x['time_uploaded']), reverse=True)
+                belts_data.append({
+                    'belt_id': belt_doc['_id'],
+                    'image_path': belt_doc['images'][0]['image_path']
+                })
         return belts_data

@@ -1,6 +1,7 @@
 from flask import Blueprint, Flask, render_template, request, jsonify, redirect, url_for
 from .db_manager import DBManager
 from werkzeug.security import generate_password_hash
+from bson.objectid import ObjectId
 
 register = Blueprint("register", __name__, url_prefix="/register")
 
@@ -17,24 +18,42 @@ def register_user():
         password_check = request.form['password_check']
         
         if password != password_check:
-            # 비밀번호와 확인이 일치하지 않을 때
-            return "Password and password check do not match", 400
+            return jsonify({'error': "비밀번호가 일치하지 않습니다."})
 
         if db_manager.find_user_by_username(username):
-            # 이미 존재하는 아이디일 경우
-            return "Username already exists", 400
+            return jsonify({'error': "이미 존재하는 ID입니다."})
 
         password_hash = generate_password_hash(password)
+        # 사용자 생성
         user_data = {
-        'username': username,
-        'password': password_hash,  # 해싱된 비밀번호 저장
-        'belts': request.form.getlist('belt[]')
+            'username': username,
+            'password': password_hash,
         }
+
+
+        # 사용자 ID 가져오기
+        user_id = db_manager.create_user(user_data)
+
+        # 사용자 ID가 ObjectId 타입인 경우 문자열로 변환
+        if isinstance(user_id, ObjectId):
+            user_id = str(user_id)
+
+        # 벨트 생성
+        belts = request.form.getlist('belt[]')
+        for belt_name in belts:
+            belt_data = {
+                'user_id': user_id,
+                'name': belt_name,
+                'kind': '',
+                'images': [],
+                'ipcam_url': '',
+                'detection': False,
+                'status': False
+            }
+            db_manager.create_belt(belt_data)
         
-        db_manager.create_user(user_data)
-        
-        # 성공적으로 등록된 경우 리다이렉트
-        return redirect(url_for('login.login_user')) # 로그인 페이지로 리다이렉트
+        return redirect(url_for('login.login_user', username=username))
+
 
 @register.route('/check_id', methods=['POST'])
 def check_id():

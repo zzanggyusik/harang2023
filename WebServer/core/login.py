@@ -7,21 +7,22 @@ login = Blueprint("login", __name__)
 
 db_manager = DBManager()
 
+
 @login.route('/', methods=['GET', 'POST'])
 def login_user():
     if request.method == 'GET':
         # 세션에서 사용자 ID를 가져옴
         user_id = session.get('user_id')
 
-        # 사용자가 로그인되어 있다면
-        if user_id:
-            # 사용자의 벨트 이미지 불러옴
-            belts_data = db_manager.get_belts_data(user_id)
-            # 메인 홈페이지 표시
-            return render_template('main.html', belts=belts_data)
+        # 사용자가 로그인되어 있지 않다면
+        if not user_id:
+            return redirect(url_for('login.login_user'))
         
-        # 로그인 페이지 렌더링
-        return render_template('home.html')
+        # 사용자가 로그인되어 있다면
+        # 사용자의 벨트 이미지 불러옴
+        belts_data = db_manager.get_belts_data(user_id)
+        # 메인 홈페이지 표시
+        return render_template('main.html', belts=belts_data)
 
     if request.method == 'POST':
         username = request.form['username']
@@ -48,7 +49,7 @@ def login_user():
             return render_template('main.html', login_time=login_time, belts=belts_data)
 
 @login.route('/logout')
-def logout_user():
+def logout_user(username):
     session.pop('user_id', None)  # 사용자 ID를 세션에서 제거
     return redirect(url_for('login.login_user'))  # 로그인 페이지로 리다이렉트
 
