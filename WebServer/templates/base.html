@@ -14,6 +14,16 @@
 <body>
     <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" class="img-fluid mb-3 mt-4 ml-4">
 
+    {% if request.endpoint != 'register' and ((request.endpoint == 'home' and login_state) or (request.endpoint != 'home'))%}
+    <!-- 네비게이션 바 -->
+    <div class="navbar-top-right">
+        <a href="{{ url_for('remote') }}">Remote</a> <span class="mx-2">|</span>
+        <span class="text-muted">History</span> <span class="mx-2">|</span>
+        <span class="text-muted">Search</span> <span class="mx-2">|</span>
+        <span class="text-muted">My Page</span>
+    </div>
+    {% endif %}
+
     <div class="content-container">
         {% block content %}{% endblock %}
     </div>    

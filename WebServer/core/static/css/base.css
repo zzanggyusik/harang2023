@@ -3,6 +3,12 @@
     margin-left: 1%;
 }
 
+.navbar-top-right {
+    position: absolute;
+    top: 7%;
+    right: 2%;
+}
+
 .content-container {
     margin-left: 3%;
     margin-right: 3%;

@@ -1,0 +1,37 @@
+.belt-cards-container {
+    display: flex;
+    flex-wrap: wrap; 
+}
+
+.belt-card {
+    flex: 0 0 calc(25% - 1%);
+    position: relative;
+    text-align: left;
+    margin-bottom: 20px;
+    margin-right: 1%; 
+}
+
+.belt-card img {
+    width: 100%; 
+    border-radius: 15px;
+}
+
+/* 동그라미의 기본 스타일 */
+.status-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+/* 상태에 따른 동그라미 색상 */
+.status-green {
+    background-color: green;
+}
+
+.status-red {
+    background-color: red;
+}
