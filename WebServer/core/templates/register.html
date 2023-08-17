@@ -1,0 +1,47 @@
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+        	alert("{{messages[-1]}}")
+		</script>
+    {% endif %}
+{% endwith %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>회원가입</title>
+</head>
+<body>
+<table>
+    <h2>{{ title }}</h2>
+
+    <form name="form" method="POST" action="/register">
+	<thead>
+		<caption>회원가입</cation>
+	<thead>
+	<tbody>
+		<tr>
+			<td>아이디</td>
+			<td><input type="text" name="username" placeholder="ID", value="{{ username }}"></td>
+		</tr>
+		<tr>
+			<td>비밀번호</td>
+			<td><input type="password" name="password" placeholder="Password"></td>
+		</tr>
+		<tr>
+			<td>비밀번호 확인</td>
+			<td><input type="password" name="password_check" placeholder="Password"></td>
+		</tr>
+		<tr>
+			<td>벨트 수</td>
+			<td><input type="number" name="belt_num" placeholder="Number"></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="Submit"></td>
+			<td><input type="button" value="Cancel" onClick="window.location.href='/'"></td>
+		</tr>
+	</tbody>
+    </form>
+</table>
+</body>
+</html>
