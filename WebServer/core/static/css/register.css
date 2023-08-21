@@ -1,0 +1,9 @@
+.input-field label {
+    padding-left: 10px;
+    padding-top: 10px;
+    color: gray;
+}
+
+.centered-form {
+    margin: auto;
+}

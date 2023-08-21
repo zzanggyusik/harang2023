@@ -1,0 +1,21 @@
+/* 이미지 스타일 */
+.belt-image {
+    width: 200px;
+    height: 200px;
+}
+
+/* 이미지 주변의 margin */
+.belt-container {
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* 로그인 폼 스타일 */
+.login-form {
+    width: 300px;
+}
+
+/* 로그아웃 버튼 스타일 */
+.logout-button {
+    margin-top: 1rem;
+}

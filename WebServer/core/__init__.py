@@ -1,7 +1,8 @@
 from flask import Flask
 from flask_session import Session
+
 from .instance.config import FLASK_SECRET_KEY, MONGODB_IP, MONGODB_PORT
-from . import login, register
+from . import login, register, remote
 from .login import get_login_blueprint
 from .register import get_register_blueprint
 # from pymongo import MongoClient
