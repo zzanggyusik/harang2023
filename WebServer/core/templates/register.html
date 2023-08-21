@@ -1,47 +1,97 @@
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <script>
-        	alert("{{messages[-1]}}")
-		</script>
-    {% endif %}
-{% endwith %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>회원가입</title>
-</head>
-<body>
-<table>
-    <h2>{{ title }}</h2>
+{% block title %}
+Register
+{% endblock %}
 
-    <form name="form" method="POST" action="/register">
-	<thead>
-		<caption>회원가입</cation>
-	<thead>
-	<tbody>
-		<tr>
-			<td>아이디</td>
-			<td><input type="text" name="username" placeholder="ID", value="{{ username }}"></td>
-		</tr>
-		<tr>
-			<td>비밀번호</td>
-			<td><input type="password" name="password" placeholder="Password"></td>
-		</tr>
-		<tr>
-			<td>비밀번호 확인</td>
-			<td><input type="password" name="password_check" placeholder="Password"></td>
-		</tr>
-		<tr>
-			<td>벨트 수</td>
-			<td><input type="number" name="belt_num" placeholder="Number"></td>
-		</tr>
-		<tr>
-			<td><input type="submit" value="Submit"></td>
-			<td><input type="button" value="Cancel" onClick="window.location.href='/'"></td>
-		</tr>
-	</tbody>
-    </form>
-</table>
-</body>
-</html>
+{% block content %}
+
+<link href="{{ url_for('static', filename='css/register.css') }}" rel="stylesheet">
+
+<script>
+    function addBeltField() {
+        // 현재의 + 버튼을 가져옴
+        var currentAddButton = document.querySelector('.add-belt-button');
+
+        var beltField = document.createElement('div');
+        beltField.className = 'input-group mb-3'; // Bootstrap의 input group을 사용
+
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.name = 'belt[]';
+        input.placeholder = 'Conveyor Belt';
+        input.className = 'form-control'; // Bootstrap의 form-control 스타일을 추가
+        beltField.appendChild(input);
+
+        // 새로운 + 버튼을 생성
+        var addButtonContainer = document.createElement('div');
+        addButtonContainer.className = 'input-group-append';
+
+        var newAddButton = document.createElement('button');
+        newAddButton.type = 'button';
+        newAddButton.className = 'btn btn-success add-belt-button';
+        newAddButton.innerText = '+';
+        newAddButton.onclick = addBeltField;
+
+        // 새로운 + 버튼을 컨테이너에 추가
+        addButtonContainer.appendChild(newAddButton);
+        beltField.appendChild(addButtonContainer);
+
+        document.getElementById('belt-field-container').appendChild(beltField);
+
+        // 현재의 + 버튼을 제거
+        if (currentAddButton) {
+            currentAddButton.remove();
+        }
+    }
+
+    function checkId() {
+        var id = document.getElementById('id').value;
+        fetch('/check_id', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'id=' + encodeURIComponent(id)
+        }).then(function(response) {
+            return response.json();
+        }).then(function(data) {
+            alert(data.msg);
+        });
+    }
+</script>
+
+<form action="/register" method="post" class="mt-4 col-md-4 centered-form">
+    <div class="form-group">
+        <label for="id">ID</label>
+        <div class="input-group">
+            <input type="text" class="form-control" id="id" name="username" placeholder="ID" required>
+            <div class="input-group-append">
+                <button type="button" class="btn btn-outline-secondary" onclick="checkId()">중복체크</button>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="PWD" required>
+    </div>
+    <div class="form-group">
+        <label for="password_check">Password Check</label>
+        <input type="password" class="form-control" id="password_check" name="password_check" placeholder="PWD Check" required>
+    </div>
+    <div id="belt-field-container">
+        <div class="form-group belt-field">
+            <label for="belt">Conveyor Belt</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="belt" name="belt[]" placeholder="Conveyor Belt" required>
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-outline-secondary" onclick="addBeltField()">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="control-group mt-4">
+        <input type="submit" class="btn btn-primary" value="Register">
+    </div>
+</form>
+{% endblock %}
