@@ -1,23 +1,21 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-
-<link href="{{ url_for('static', filename='css/remote.css') }}" rel="stylesheet">
-<h4>Registed Convayor belt</h4>
-
-<!-- (임시) 각 Convayor belt에 대한 카드를 for loop로 표시 -->
-<div class="belt-cards-container">
+    <h2>Registered Conveyor Belt</h2>
+    
     {% for belt in belts %}
-    <div class="belt-card">
-        <img src="{{ url_for('static', filename=belt.image_path) }}" alt="Belt Image">
-        <!-- 동그라미 추가. 예시로 초록색 클래스를 붙임 -->
-        <div class="status-indicator status-green"></div>
-        
-        <div>ID : {{ belt.belt_id }}</div>
-        <div>Name : Nana</div>
-        <div>Kind : Type A</div>
+    <div class="belt-info">
+        <div class="belt-image">
+            <!-- 이미지 추가 -->
+            <img src="{{ belt.image_path }}" alt="Belt Image">
+            <!-- 작동 상태 불빛 -->
+            <div class="status-light {{ 'status-green' if belt.status == 'start' else 'status-red' }}"></div>
+        </div>
+        <div>
+            <p>ID: {{ belt._id }}</p>
+            <p>Name: {{ belt.name }}</p>
+            <p>Kind: {{ belt.kind }}</p>
+        </div>
     </div>
     {% endfor %}
-</div>
-
 {% endblock %}

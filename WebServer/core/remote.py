@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, session, redirect, url_for
 from .db_manager import DBManager
-from flask import Blueprint
 
 remote = Blueprint("remote", __name__, url_prefix="/remote")
 
@@ -30,7 +29,7 @@ def show_remote():
     return render_template('remote.html', belts=belts_info)
 
 
-@remote.route('/remote_detail/<belt_id>', methods=['GET'])
+@remote.route('/detail/<string:username>/<int:belt_id>', methods=['GET'])
 def show_remote_detail(username, belt_id):
     # 로그인 되어 있는지 확인
     user_id = session.get('user_id')

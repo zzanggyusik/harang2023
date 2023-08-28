@@ -7,6 +7,7 @@
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/base.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/history.css') }}" rel="stylesheet">
 
     <title>{% block title %}Default Title{% endblock %}</title>
 </head>
@@ -21,7 +22,7 @@
         <!-- 네비게이션 바 -->
         <div class="navbar-top-right">
             <a href="{{ url_for('remote.show_remote') }}">Remote</a> <span class="mx-2">|</span>
-            <span class="text-muted">History</span> <span class="mx-2">|</span>
+            <a href="{{ url_for('history.show_history') }}">History</span> <span class="mx-2">|</span>
             <span class="text-muted">Search</span> <span class="mx-2">|</span>
             <span class="text-muted">My Page</span>
         </div>

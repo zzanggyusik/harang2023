@@ -1,0 +1,26 @@
+/* history.css */
+.history-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.belt-section {
+    margin-bottom: 30px;
+}
+
+.belt-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.belt-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;  /* 이미지 간의 간격 */
+}
+
+.belt-image {
+    width: 100px; /* 원하는 이미지 크기 */
+    height: auto;
+}

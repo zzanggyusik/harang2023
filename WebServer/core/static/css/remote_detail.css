@@ -1,0 +1,36 @@
+.detail-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.belt-detail {
+    width: 45%;
+}
+
+.belt-cam {
+    width: 45%;
+}
+
+.detail-info {
+    margin-top: 20px;
+    list-style-type: none;
+}
+
+.detail-info li {
+    margin-bottom: 10px;
+}
+
+.belt-control-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.belt-control-buttons button {
+    margin: 0 10px;
+}
+
+.belt-log {
+    text-align: center;
+    margin-top: 20px;
+}
