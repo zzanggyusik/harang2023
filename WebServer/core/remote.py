@@ -29,7 +29,7 @@ def show_remote():
     return render_template('remote.html', belts=belts_info)
 
 
-@remote.route('/detail/<string:username>/<int:belt_id>', methods=['GET'])
+@remote.route('/detail', methods=['GET'])
 def show_remote_detail(username, belt_id):
     # 로그인 되어 있는지 확인
     user_id = session.get('user_id')

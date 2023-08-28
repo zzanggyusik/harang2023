@@ -11,7 +11,7 @@ def show_history():
     user_id = session.get('user_id')  # 현재 로그인된 사용자 ID를 가져옵니다.
     
     if not user_id:
-        return redirect(url_for('login'))  # 만약 로그인이 되어있지 않다면 로그인 페이지로 리다이렉트합니다.
+        return redirect(url_for('login.login_user'))  # 만약 로그인이 되어있지 않다면 로그인 페이지로 리다이렉트합니다.
     
     belts_data = db_manager.get_belts_data(user_id)
     all_belts_images = []  # 모든 벨트의 이미지들을 저장할 리스트

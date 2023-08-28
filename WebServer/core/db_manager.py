@@ -49,9 +49,29 @@ class DBManager:
         belt_coll = self.belt_db
         belt_docs = belt_coll.find({'user_id': user_id})
         for belt_doc in belt_docs:
-            belt_doc['images'].sort(key=lambda x: parse(x['time_uploaded']), reverse=True)
-            belts_data.append({
-                'belt_id': belt_doc['_id'],
-                'image_path': belt_doc['images'][0]['image_path']
-            })
+            if 'images' in belt_doc and belt_doc['images']:
+                belt_doc['images'].sort(key=lambda x: parse(x['time_uploaded']), reverse=True)
+                belts_data.append({
+                    'belt_id': belt_doc['_id'],
+                    'image_path': belt_doc['images'][0]['image_path']
+                })
         return belts_data
+    
+    def create_belt(self, belt_data):
+        # 동일한 사용자의 동일한 벨트 이름 확인
+        existing_belt = self.belt_db.find_one({'user_id': belt_data['user_id'], 'belt_name': belt_data['belt_name']})
+        if existing_belt:
+            # 이미 존재하는 벨트 이름이라면 에러 반환
+            return {"error": "Belt name already exists for this user."}
+
+        # 벨트 추가
+        self.belt_db.insert_one(belt_data)
+        return {"success": True}
+    
+    # 사용자 및 해당 사용자의 모든 벨트 데이터 삭제
+    def delete_user_and_belts(self, user_id):
+        # 회원 정보 삭제
+        self.user_db.delete_one({'_id': user_id})
+
+        # 해당 회원의 모든 벨트 데이터 삭제
+        self.belt_db.delete_many({'user_id': user_id})
