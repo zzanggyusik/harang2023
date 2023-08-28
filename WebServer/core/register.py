@@ -1,6 +1,7 @@
 from flask import Blueprint, Flask, render_template, request, jsonify, redirect, url_for
 from .db_manager import DBManager
 from werkzeug.security import generate_password_hash
+from flask import flash, get_flashed_messages
 
 register = Blueprint("register", __name__, url_prefix="/register")
 
@@ -18,11 +19,13 @@ def register_user():
         
         if password != password_check:
             # 비밀번호와 확인이 일치하지 않을 때
-            return "Password and password check do not match", 400
+            flash("Password and password check do not match")
+            return render_template('register.html')
 
         if db_manager.find_user_by_username(username):
             # 이미 존재하는 아이디일 경우
-            return "Username already exists", 400
+            flash("Username already exists")
+            return render_template('register.html')
 
         password_hash = generate_password_hash(password)
         user_data = {

@@ -3,6 +3,11 @@
     margin-left: 1%;
 }
 
+img.img-fluid {
+    max-width: 200px;  /* 원하는 너비로 설정하세요 */
+    height: auto;     /* 높이는 원래 이미지의 비율에 따라 자동으로 조정됩니다 */
+}
+
 .navbar-top-right {
     position: absolute;
     top: 7%;
@@ -12,4 +17,25 @@
 .content-container {
     margin-left: 3%;
     margin-right: 3%;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.content-container {
+    flex: 1;
+}
+
+.logout-link-container {
+    text-align: center;
+    padding: 1em;
 }
