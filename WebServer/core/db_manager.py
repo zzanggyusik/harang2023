@@ -2,6 +2,8 @@ from pymongo import MongoClient
 from flask import session
 from .instance.config import MONGODB_IP, MONGODB_PORT
 from dateutil.parser import parse
+from bson import ObjectId
+
 
 class DBManager:
     def __init__(self):
@@ -20,7 +22,7 @@ class DBManager:
     # 사용자 이름(ID)으로 사용자 조회
     def find_user_by_username(self, username):
         return self.user_db.find_one({'username': username})
-
+    
     # 사용자 로그인 상태 및 로그인 시간 업데이트
     def update_user_login(self, user_id, login_time):
         self.user_db.update_one({'_id': user_id}, {'$set': {'login_time': login_time}})
@@ -35,16 +37,15 @@ class DBManager:
     def find_belt_by_id(self, belt_id):
         return self.belt_db.find_one({'_id': belt_id})
 
-    # 사용자 고유 ID로 소유한 벨트 목록 조회
     def find_belts_by_user_id(self, user_id):
-        return self.belt_db.find({'user_id': user_id})
+        return self.belt_db.find({'user_id': ObjectId(user_id)})
 
     # 벨트 삭제
     def delete_belt(self, belt_id):
         return self.belt_db.delete_one({'_id': belt_id})
 
     # 사용자 고유 ID로 소유한 벨트 데이터 및 최신 이미지 경로 조회
-    def get_belts_data(self, user_id):
+    def get_belts_image_data(self, user_id):
         belts_data = []
         belt_coll = self.belt_db
         belt_docs = belt_coll.find({'user_id': user_id})
@@ -53,7 +54,7 @@ class DBManager:
                 belt_doc['images'].sort(key=lambda x: parse(x['time_uploaded']), reverse=True)
                 belts_data.append({
                     'belt_id': belt_doc['_id'],
-                    'image_path': belt_doc['images'][0]['image_path']
+                    'image_path': belt_doc['images'][0]['url']  # 'url' 필드로 접근
                 })
         return belts_data
     
@@ -75,3 +76,8 @@ class DBManager:
 
         # 해당 회원의 모든 벨트 데이터 삭제
         self.belt_db.delete_many({'user_id': user_id})
+
+
+    # 사용자 아이디를 통한 사용자 벨트조회
+    def find_belt_by_name_and_user_id(self, belt_name, user_id):
+        return self.belt_db.find_one({'belt_name': belt_name, 'user_id': ObjectId(user_id)})

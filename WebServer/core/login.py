@@ -16,7 +16,7 @@ def login_user():
         # 사용자가 로그인되어 있다면
         if user_id:
             # 사용자의 벨트 이미지 불러옴
-            belts_data = db_manager.get_belts_data(user_id)
+            belts_data = db_manager.get_belts_image_data(user_id)
             # 메인 홈페이지 표시
             return render_template('main_login.html', belts=belts_data)
         
@@ -42,7 +42,7 @@ def login_user():
             session['user_id'] = str(user['_id'])
 
             # 사용자의 벨트 이미지 불러옴
-            belts_data = db_manager.get_belts_data(user['_id'])
+            belts_data = db_manager.get_belts_image_data(user['_id'])
             
             # 로그인 성공, 홈 페이지로 리다이렉트
             return render_template('main_login.html', login_time=login_time, belts=belts_data)

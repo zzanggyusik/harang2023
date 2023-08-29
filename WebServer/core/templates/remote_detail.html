@@ -6,21 +6,21 @@
         <!-- 벨트 X-ray 이미지 및 상세 정보 -->
         <div class="belt-detail">
             <h3>Current belt - xray</h3>
-            <img src="{{ belt.image_path }}" alt="Belt X-ray Image" class="mb-4">
+            <img src="{{ image_path }}" alt="{{ belt_name }}" />
             
             <h4>Detail Info</h4>
             <ul class="detail-info">
-                <li>ID: {{ belt._id }}</li>
-                <li>Name: {{ belt.name }}</li>
-                <li>Kind: {{ belt.kind }}</li>
-                <li>Detection: {{ 'Defective product' if belt.detection else 'Undefective product' }}</li>
+                <p>Name: {{ belt_name }}</p>
+                <p>Kind: {{ kind }}</p>
+                <p>Time Uploaded: {{ time_uploaded }}</p>
+                <p>Detection: {{ detection }}</p>
             </ul>
         </div>
 
         <!-- 실시간 IPCam 영상 -->
         <div class="belt-cam">
             <h3>Current belt - cam</h3>
-            <iframe src="{{ belt.ipcam_url }}" width="100%" height="300px"></iframe>
+            <iframe src="{{ ipcam_url }}" width="100%" height="300px"></iframe>
         </div>
     </div>
 
@@ -31,6 +31,6 @@
     </div>
 
     <div class="belt-log">
-        <p>Running Logs({{ username }}_{{ belt.name }}</p>
+        <p>Running Logs({{ username }}_{{ belt.belt_name }}</p>
     </div>
 {% endblock %}
