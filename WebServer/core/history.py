@@ -13,9 +13,9 @@ def show_history():
     if not user_id:
         return redirect(url_for('login.login_user'))  # 만약 로그인이 되어있지 않다면 로그인 페이지로 리다이렉트합니다.
     
-    belts_data = db_manager.get_belts_image_data(user_id)
+    belts_data = list(db_manager.find_belts_by_user_id(user_id))
     all_belts_images = []  # 모든 벨트의 이미지들을 저장할 리스트
-
+    
     for belt_data in belts_data:
         belt = db_manager.find_belt_by_id(belt_data['belt_id'])
         user = db_manager.find_user_by_id(user_id)

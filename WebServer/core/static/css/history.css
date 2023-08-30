@@ -1,26 +1,51 @@
-/* history.css */
-.history-header {
-    font-size: 24px;
-    font-weight: bold;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.belt-group {
+    background-color: #fff;
     margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.belt-section {
-    margin-bottom: 30px;
-}
-
-.belt-title {
-    font-size: 20px;
-    margin-bottom: 10px;
+.belt-header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    font-weight: bold;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .belt-images {
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 10px;  /* 이미지 간의 간격 */
+    padding: 10px;
 }
 
-.belt-image {
-    width: 100px; /* 원하는 이미지 크기 */
-    height: auto;
+.image-box {
+    width: calc(16.66% - 10px); /* For 6 images */
+    margin: 5px;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.image-box img {
+    max-width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.image-box:hover img {
+    transform: scale(1.1);
 }

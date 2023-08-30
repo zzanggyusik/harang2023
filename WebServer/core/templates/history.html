@@ -1,19 +1,18 @@
 {% extends "base.html" %}
 
-{% block title %}
-History
-{% endblock %}
-
 {% block content %}
-
 <h2>Previous Activity</h2>
 
-{% for image in images %}
-    <div class="belt-section">
-        <div class="belt-title">{{ image.username }}_{{ image.belt_name }}</div>
+{% for belt in images %}
+    <div class="belt-group">
+        <div class="belt-header">
+            Running Logs({{ belt.username }}_{{ belt.belt_name }}_{{ belt.recent_images[0].time_uploaded }})
+        </div>
         <div class="belt-images">
-            {% for img in image.recent_images %}
-                <img src="{{ img.image_path }}" alt="Belt Image" class="belt-image">
+            {% for image in belt.recent_images %}
+                <div class="image-box">
+                    <img src="{{ image.url }}" alt="Belt Image">
+                </div>
             {% endfor %}
         </div>
     </div>
