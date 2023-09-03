@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, request, redirect, url_for, sessio
 from .db_manager import DBManager
 from werkzeug.security import check_password_hash
 from datetime import datetime
+from markupsafe import escape
+
 
 login = Blueprint("login", __name__)
 
@@ -10,17 +12,17 @@ db_manager = DBManager()
 @login.route('/', methods=['GET', 'POST'])
 def login_user():
     if request.method == 'GET':
-        # 세션에서 사용자 ID를 가져옴
-        user_id = session.get('user_id')
-
         # 사용자가 로그인되어 있다면
-        if user_id:
+        if "user_id" in session:
+            print("로그인 되어있습니다!")
+            
             # 사용자의 벨트 이미지 불러옴
-            belts_data = db_manager.get_belts_image_data(user_id)
+            # belts_data = db_manager.get_belts_image_data(user_id)
             # 메인 홈페이지 표시
-            return render_template('main_login.html', belts=belts_data)
+            return render_template('main_login.html', belts=belts_data) % escape(session["user_id"])
         
         # 로그인 페이지 렌더링
+        print("로그인되어 있지 않습니다!")
         return render_template('main_unlogin.html')
 
     if request.method == 'POST':
@@ -38,9 +40,9 @@ def login_user():
             login_time = str(datetime.utcnow())
             db_manager.update_user_login(user['_id'], login_time)
 
-            # 사용자 고유 ID를 세션에 저장
-            session['user_id'] = str(user['_id'])
-
+            # 사용자 ID를 세션에 저장
+            session["user_id"] = username
+            
             # 사용자의 벨트 이미지 불러옴
             belts_data = db_manager.get_belts_image_data(user['_id'])
             

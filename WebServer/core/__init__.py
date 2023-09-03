@@ -6,6 +6,7 @@ from .login import get_login_blueprint
 from .register import get_register_blueprint
 from .remote import get_remote_blueprint
 from .history import get_history_blueprint
+from datetime import timedelta
 # from pymongo import MongoClient
 # from flask_mongoengine import MongoEngine
 
@@ -15,6 +16,8 @@ def create_app():
     
     app.config['SECRET_KEY'] = flask.secret_key
     app.config['SESSION_TYPE'] = flask.session_type
+    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes= 5)
+    
     # app.config['SESSION_TYPE'] = 'mongodb'
     # app.config['SESSION_MONGODB'] = MongoClient(MONGODB_IP, MONGODB_PORT)['harang']
 
