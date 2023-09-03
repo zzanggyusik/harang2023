@@ -1,13 +1,15 @@
 from enum import Enum
 
 class Database():
-    pass
+    Users = "Users"
 
 class Collection():
-    pass
-
+    User = "User"
+        
 class Mode(Enum):
     ONE = 0
     MANY = 1
+    
+    
 
     

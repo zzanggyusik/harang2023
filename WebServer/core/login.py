@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from .db_manager import DBManager
+from .instance.db_config import *
 from werkzeug.security import check_password_hash
 from datetime import datetime
 from markupsafe import escape
@@ -14,7 +15,7 @@ def login_user():
     if request.method == 'GET':
         # 사용자가 로그인되어 있다면
         if "user_id" in session:
-            print("로그인 되어있습니다!")
+            print(f"로그인 - {session['user_id']}")
             
             # 사용자의 벨트 이미지 불러옴
             # belts_data = db_manager.get_belts_image_data(user_id)
@@ -56,3 +57,6 @@ def logout_user():
 
 def get_login_blueprint():
     return login
+
+def get_belts_image():
+    user_conveyorbelt = db_manager.read(db= Database.Users, collection= Collection.User)
