@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<link href="{{ url_for('static', filename='css/main_login.css') }}" rel="stylesheet">
+
+<h3>{{ login_time }}</h3>
+<h3>{{ username }}</h3>
+
+<div class="d-flex flex-wrap flex-md-nowrap">
+    {% for belt in belts %}
+        <div class="belt-container">
+            <h3>cb{{ belt.belt_id }}</h3>
+            <img src="{{ url_for('static', filename=belt.image_path) }}" alt="cb{{ loop.index }} image" class="belt-image">
+        </div>
+    {% endfor %}
+</div>  
+
+{% endblock %}

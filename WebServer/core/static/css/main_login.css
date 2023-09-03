@@ -10,12 +10,7 @@
     margin-bottom: 1rem;
 }
 
-/* 로그인 폼 스타일 */
-.login-form {
-    width: 300px;
-}
-
-/* 로그아웃 버튼 스타일 */
-.logout-button {
+/* 로그아웃 버튼 스타일 (사용하지 않는다면 이 부분은 주석처리 또는 삭제 가능) */
+/* .logout-button {
     margin-top: 1rem;
-}
+} */

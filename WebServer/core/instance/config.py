@@ -1,16 +1,50 @@
-# TODO
-# Flask 설정에 필요한 개인정보 저장
-# example
-    # IP
-    # PORT
-    # DB ID
-    # DB PWD
+class Network():
+    def __init__(self, host, port):
+        self.__host: str = host
+        self.__port: int = port 
     
+    @property
+    def host(self):
+        return self.__host
+    
+    @host.setter
+    def host(self, value):
+        self.__host = value
+    
+    @property    
+    def port(self):
+        return self.__port
+    
+    @port.setter
+    def port(self, value):
+        self.__port = value
+    
+
 # Flask Config    
-FLASK_HOST = "0.0.0.0"
-FLASK_PORT = 5000    
-FLASK_SECRET_KEY = "harang123!!"  
+class FlaskConfig(Network):
+    def __init__(self, _host = "0.0.0.0", _port = 5000):
+        super().__init__(_host, _port)
+        self.__secret_key: str = "harang123!!"  
+        self.__session_type: str  = "filesystem"
+        
+    @property
+    def secret_key(self):
+        return self.__secret_key
+    
+    @secret_key.setter
+    def secret_key(self, value):
+        self.__secret_key = value
+        
+    @property
+    def session_type(self):
+        return self.__session_type
+    
+    @session_type.setter
+    def session_type(self, value):
+        self.__session_type = value
+
 
 # MongoDB Config
-MONGODB_IP = "localhost"
-MONGODB_PORT = 27017
+class MongoDBConfig(Network):    
+    def __init__(self, _host = "localhost", _port = 27017):
+        super().__init__(_host, _port)

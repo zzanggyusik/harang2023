@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Login Page{% endblock %}
+
+{% block content %}
+
+<link href="{{ url_for('static', filename='css/main_unlogin.css') }}" rel="stylesheet">
+
+<div class="d-flex justify-content-center">
+    <form action="/" method="post" class="text-center login-form">
+        <h3 class="mb-4">Log in</h3> 
+
+        <div class="form-group">
+            <input type="text" id="id" name="username" placeholder="ID" required class="form-control">
+        </div>
+
+        <div class="form-group">
+            <input type="password" id="password" name="password" placeholder="PWD" required class="form-control">
+        </div>
+
+        <a href="/register" class="d-block mb-3">Register</a>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
+
+{% endblock %}
