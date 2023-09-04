@@ -30,7 +30,7 @@ def login_user():
         username = request.form['username']
         password = request.form['password']
         
-        user = db_manager.find_user_by_username(username)
+        user = db_manager.read(db= Database.Users, collection= Collection.User, key= "user_id", value= username)
 
         # 사용자가 존재하지 않거나 비밀번호가 일치하지 않는 경우
         if user is None or not check_password_hash(user['password'], password):
@@ -59,4 +59,7 @@ def get_login_blueprint():
     return login
 
 def get_belts_image():
-    user_conveyorbelt = db_manager.read(db= Database.Users, collection= Collection.User)
+    user_conveyorbelt = db_manager.read(db= Database.Users, collection= Collection.User,\
+        key = "user_id", value= session["user_id"])
+    
+    print(user_conveyorbelt)
