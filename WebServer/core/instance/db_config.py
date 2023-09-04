@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import Enum, auto
 
 class Database():    
     Users = "Users"
@@ -18,8 +18,11 @@ class Key():
     
         
 class Mode(Enum):
-    ONE = 0
-    MANY = 1
+    ONE = auto()
+    MANY = auto()
+    ALL_DATABASES = auto()
+    ALL_COLLECTIONS = auto()
+    MAIN_IMAGE = auto()
     
 
     

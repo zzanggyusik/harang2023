@@ -21,15 +21,18 @@ class DBManager:
         except:
             return "DB Create: Error Occurred"
     
-    def read(self, db, collection, key, value, mode = Mode.ONE):
+    def read(self, db= None, collection= None, key= None, value= None, mode = Mode.ONE):
         try:
             if mode == Mode.ONE:
                 return self.mongo_client[db][collection].find_one({key: value})
             elif mode == Mode.MANY:
                 return self.mongo_client[db][collection].find({key: value})
+            elif mode == Mode.ALL_DATABASES:
+                return self.mongo_client.list_database_names()
+    
             
         except:
-            return "DB Read: Error Occurred"
+            return "DB Read: Error Occuarred"
     
     def update(self, db, collection, key_where, value_where, \
                 key_set, value_set):

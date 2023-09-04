@@ -16,7 +16,7 @@ def create_app():
     
     app.config['SECRET_KEY'] = flask.secret_key
     app.config['SESSION_TYPE'] = flask.session_type
-    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes= 5)
+    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes= 1)
     
     # app.config['SESSION_TYPE'] = 'mongodb'
     # app.config['SESSION_MONGODB'] = MongoClient(MONGODB_IP, MONGODB_PORT)['harang']

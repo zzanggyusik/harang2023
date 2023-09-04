@@ -1,8 +1,7 @@
-from flask import Blueprint, Flask, render_template, request, jsonify, redirect, url_for
+from flask import Blueprint, Flask, render_template, request, jsonify, redirect, url_for, flash, get_flashed_messages
 from .db_manager import DBManager
 from .instance.db_config import *
 from werkzeug.security import generate_password_hash
-from flask import flash, get_flashed_messages
 import datetime
 
 register = Blueprint("register", __name__, url_prefix="/register")
@@ -44,11 +43,13 @@ def register_user():
             value = {
                 "user_id": user_id,
                 "belt_name": belt_name,
-                "created_date": datetime.datetime.now()
+                "created_date": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
             
             create = db_manager.create(db= Database.user_conveyorbelt(user_id, belt_name),\
                 collection= Collection.Create_info, value= value)
+            
+            print(create)
             
             # result = db_manager.create_belt(belt_data)
             
