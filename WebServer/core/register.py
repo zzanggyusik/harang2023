@@ -43,11 +43,12 @@ def register_user():
             value = {
                 "user_id": user_id,
                 "belt_name": belt_name,
-                "created_date": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                "created_date": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                "running_state": False
             }
             
             create = db_manager.create(db= Database.user_conveyorbelt(user_id, belt_name),\
-                collection= Collection.Create_info, value= value)
+                collection= Collection.Config, value= value)
             
             print(create)
             

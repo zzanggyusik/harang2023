@@ -24,12 +24,19 @@ class DBManager:
     def read(self, db= None, collection= None, key= None, value= None, mode = Mode.ONE):
         try:
             if mode == Mode.ONE:
-                return self.mongo_client[db][collection].find_one({key: value})
+                if key:
+                    return self.mongo_client[db][collection].find_one({key: value})
+                else:
+                    return self.mongo_client[db][collection].find_one()
+                
             elif mode == Mode.MANY:
-                return self.mongo_client[db][collection].find({key: value})
+                if key:
+                    return self.mongo_client[db][collection].find({key: value})
+                else:
+                    return self.mongo_client[db][collection].find()
+                
             elif mode == Mode.ALL_DATABASES:
                 return self.mongo_client.list_database_names()
-    
             
         except:
             return "DB Read: Error Occuarred"
@@ -52,14 +59,24 @@ class DBManager:
         except:
             return "DB Delete: Error Occurred"
     
-    def get_user_recent_belts_image(self, database):
-        recent_collection = \
-            sorted(self.mongo_client[database].list_collection_names(), reverse= True)[0]        
+    def get_user_recent_belts_image(self, user_id) -> dict:
+        recent_belts_info = {}
         
-        if recent_collection == "Create_info":
-            return None
-        else:
-            return self.mongo_client[database][recent_collection].find_one(sort= [("time_uploaded", DESCENDING)])
+        databases = [db for db in self.read(mode= Mode.ALL_DATABASES) if user_id in db]        
+        
+        for index, database in enumerate(databases):
+            recent_collection = \
+                sorted(self.mongo_client[database].list_collection_names(), reverse= True)[0]        
+            
+            if recent_collection == "Config":
+                data= None
+            else:
+                data= self.mongo_client[database][recent_collection].find_one(sort= [("time_uploaded", DESCENDING)])
+            
+            recent_belts_info[database] = data
+            
+        return recent_belts_info
+            
 
     # 사용자 추가
     # def create_user(self, user_data):
