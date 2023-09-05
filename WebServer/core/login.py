@@ -20,7 +20,10 @@ def login_user():
             # 사용자의 벨트 이미지 불러옴
             # belts_data = db_manager.get_belts_image_data(user_id)
             # 메인 홈페이지 표시
-            return render_template('main_login.html', belts=belts_data) % escape(session["user_id"])
+            
+            recent_belts_info = get_belts_recent_image(session["user_id"])
+            
+            return render_template('main_login.html', recent_belts_info= recent_belts_info)
         
         # 로그인 페이지 렌더링
         print("로그인되어 있지 않습니다!")
@@ -45,13 +48,13 @@ def login_user():
 
             # 사용자 ID를 세션에 저장
             session["user_id"] = user_id
+                    
+            recent_belts_info = get_belts_recent_image(session["user_id"])
             
-            databases = [db for db in db_manager.read(mode= Mode.ALL_DATABASES) if user_id in db]
-            
-            get_belts_image(user_id, databases)
+            print(recent_belts_info)
             
             # 로그인 성공, 홈 페이지로 리디렉트
-            return render_template('main_login.html', login_time=login_time, belts=belts_data)
+            return render_template('main_login.html', login_time= login_time, username= user_id, recent_belts_info= recent_belts_info)
 
 @login.route('/logout')
 def logout_user():
@@ -61,16 +64,14 @@ def logout_user():
 def get_login_blueprint():
     return login
 
-def get_belts_image(user_id, databases):
+def get_belts_recent_image(user_id):
+    recent_belts_info = {}
     
-    for index, value in enumerate(databases):
+    databases = [db for db in db_manager.read(mode= Mode.ALL_DATABASES) if user_id in db]
+    
+    for index, database in enumerate(databases):
         # 가장 최신 Collection return
-        recent_collection = \
-            sorted(db_manager.mongo_client[value].list_collection_names(), reverse= True)
-            
-        print(f"recent_collection = {recent_collection}")
-            
-    # user_conveyorbelt = db_manager.read(db= user_conveyorbelt(user_id, databases), collection= Collection.User,\
-    #     key = "user_id", value= session["user_id"])
+            data = db_manager.get_user_recent_belts_image(database)
+            recent_belts_info[database] = data
     
-    # print(user_conveyorbelt)
+    return recent_belts_info

@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+from pymongo import MongoClient, DESCENDING
 from flask import session
 from .instance.config import MongoDBConfig
 from .instance.db_config import Mode
@@ -52,7 +52,15 @@ class DBManager:
         except:
             return "DB Delete: Error Occurred"
     
-    
+    def get_user_recent_belts_image(self, database):
+        recent_collection = \
+            sorted(self.mongo_client[database].list_collection_names(), reverse= True)[0]        
+        
+        if recent_collection == "Create_info":
+            return None
+        else:
+            return self.mongo_client[database][recent_collection].find_one(sort= [("time_uploaded", DESCENDING)])
+
     # 사용자 추가
     # def create_user(self, user_data):
     #     return self.user_db.insert_one(user_data)

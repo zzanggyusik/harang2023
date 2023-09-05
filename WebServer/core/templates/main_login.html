@@ -3,19 +3,45 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
+<style>
+    .container {
+        text-align: center; /* 가운데 정렬 설정 */
+    }
+
+    .belt-container {
+        margin: 0 400px; /* 좌우 200px 마진 설정 */
+        display: inline-block; /* 인라인 블록으로 변경하여 좌우 정렬 설정 */
+    }
+
+    .spacing {
+        margin-bottom: 100px; /* 상하 간격 설정 */
+    }
+</style>
 
 <link href="{{ url_for('static', filename='css/main_login.css') }}" rel="stylesheet">
 
 <h3>{{ login_time }}</h3>
-<h3>{{ username }}</h3>
+<h3>반갑습니다, {{ username }}님!</h3>
 
-<div class="d-flex flex-wrap flex-md-nowrap">
-    {% for belt in belts %}
-        <div class="belt-container">
-            <h3>cb{{ belt.belt_id }}</h3>
-            <img src="{{ url_for('static', filename=belt.image_path) }}" alt="cb{{ loop.index }} image" class="belt-image">
-        </div>
-    {% endfor %}
-</div>  
+<!-- 간격을 주기 위한 빈 요소 추가 -->
+<div class="spacing"></div>
+
+<div class="container">
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-center">
+        {% for belt_id, belt_data in recent_belts_info.items() %}
+            <div class="belt-container">
+                <h3>{{ belt_id }}</h3>
+                {% if belt_data is not none %}
+                    <img src="{{ url_for('static', filename=belt_data.image_path) }}" alt="cb{{ loop.index }} image" class="belt-image">
+                {% else %}
+                    <h3>No data</h3>
+                {% endif %}
+            </div>
+
+            <!-- 간격을 주기 위한 빈 요소 추가 -->
+            <div class="spacing"></div>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}
