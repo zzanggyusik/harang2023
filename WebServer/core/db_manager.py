@@ -80,9 +80,7 @@ class DBManager:
     def get_user_running_belts(self, user_id) -> dict:
         current_running_belts_number = 0
         user_convayor_belts = [db for db in self.read(mode= Mode.ALL_DATABASES) if user_id in db]   
-        
-        print(user_convayor_belts)
-        
+         
         for database in user_convayor_belts:
             config = self.read(db= database, collection=Collection.Config)
             if config["running_state"]:

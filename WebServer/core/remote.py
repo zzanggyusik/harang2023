@@ -14,24 +14,23 @@ def show_remote():
         return redirect(url_for('login.login_user'))    
     # 사용자가 소유한 벨트 데이터 조회
     belts_data = db_manager.get_user_recent_belts_image(session["user_id"])
-    print(belts_data)
     
     for database, value in belts_data.items():
         config = db_manager.read(db= database, collection=Collection.Config)
-        print(config["running_state"])
+        
         if belts_data[database]:
             belts_data[database]["running_state"] = config["running_state"]
             belts_data[database]["belt_name"] = config["belt_name"]
-    
+
     return render_template('remote.html', belts_data= belts_data)
 
-@remote.route('/detail/<belt_name>', methods=['GET'])
-def belt_detail(belt_name):
+@remote.route('/detail/<belt_id>', methods=['GET'])
+def belt_detail(belt_id):
     # 로그인 되어 있는지 확인
     if "user_id" not in session:
         return redirect(url_for('login.login_user'))   
-
-    belt_data = db_manager.find_belt_by_name_and_user_id(belt_name, user_id)
+    
+    belt_data = db_manager.find_belt_by_name_and_user_id(belt_name, session["user_id"]) 
 
     if not belt_data:
         return "Belt not found!", 404
