@@ -21,9 +21,12 @@ def login_user():
             # belts_data = db_manager.get_belts_image_data(user_id)
             # 메인 홈페이지 표시
             
+            login_time = db_manager.read(db= Database.Users, collection= Collection.User,\
+                key= Key.user_id, value= session["user_id"])["login_time"]
             recent_belts_info = db_manager.get_user_recent_belts_image(session["user_id"])
             
-            return render_template('main_login.html', recent_belts_info= recent_belts_info)
+            return render_template('main_login.html', recent_belts_info= recent_belts_info,\
+                username= session['user_id'], login_time= login_time)
         
         # 로그인 페이지 렌더링
         print("로그인되어 있지 않습니다!")
