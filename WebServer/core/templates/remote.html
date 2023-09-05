@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Registed Convayor blet</h2>
+<h3>Registered Conveyor Belt</h3>
 
 <div class="belt-data-container">
     {% for belt_id, belt_data in belts_data.items() %}
@@ -12,12 +12,13 @@
                 </a>
                 <div class="detection-circle {% if belt_data.running_state and belt_data.running_state == 'true' %}detection-true{% endif %}"></div>
             </div>
-                <p>Name: {{ belt_data.belt_name }}</p>
-                <!--<p>Kind: {{ belt_data.kind }}</p> -->
+            <p>Name: {{ belt_data.belt_name }}</p>
+            <!--<p>Kind: {{ belt_data.kind }}</p>-->
         </div>
     {% endfor %}
 </div>
 {% endblock %}
+
 
 WebServer\core\static\images\dog1.jpeg
 
