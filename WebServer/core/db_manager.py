@@ -1,7 +1,7 @@
 from pymongo import MongoClient, DESCENDING
 from flask import session
 from .instance.config import MongoDBConfig
-from .instance.db_config import Mode
+from .instance.db_config import *
 from dateutil.parser import parse
 from bson import ObjectId
 
@@ -62,22 +62,35 @@ class DBManager:
     def get_user_recent_belts_image(self, user_id) -> dict:
         recent_belts_info = {}
         
-        databases = [db for db in self.read(mode= Mode.ALL_DATABASES) if user_id in db]        
+        user_convayor_belts = [db for db in self.read(mode= Mode.ALL_DATABASES) if user_id in db]        
         
-        for index, database in enumerate(databases):
-            recent_collection = \
+        for index, database in enumerate(user_convayor_belts):
+            recent_belt_log = \
                 sorted(self.mongo_client[database].list_collection_names(), reverse= True)[0]        
             
-            if recent_collection == "Config":
+            if recent_belt_log == "Config":
                 data= None
             else:
-                data= self.mongo_client[database][recent_collection].find_one(sort= [("time_uploaded", DESCENDING)])
+                data= self.mongo_client[database][recent_belt_log].find_one(sort= [("time_uploaded", DESCENDING)])
             
             recent_belts_info[database] = data
             
         return recent_belts_info
             
-
+    def get_user_running_belts(self, user_id) -> dict:
+        current_running_belts_number = 0
+        user_convayor_belts = [db for db in self.read(mode= Mode.ALL_DATABASES) if user_id in db]   
+        
+        print(user_convayor_belts)
+        
+        for database in user_convayor_belts:
+            config = self.read(db= database, collection=Collection.Config)
+            if config["running_state"]:
+                current_running_belts_number += 1
+                
+        return current_running_belts_number, len(user_convayor_belts)
+        
+    
     # 사용자 추가
     # def create_user(self, user_data):
     #     return self.user_db.insert_one(user_data)

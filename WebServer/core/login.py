@@ -10,6 +10,7 @@ login = Blueprint("login", __name__)
 
 db_manager = DBManager()
 
+
 @login.route('/', methods=['GET', 'POST'])
 def login_user():
     if request.method == 'GET':
@@ -25,8 +26,11 @@ def login_user():
                 key= Key.user_id, value= session["user_id"])["login_time"]
             recent_belts_info = db_manager.get_user_recent_belts_image(session["user_id"])
             
+            current_running_belts_number, all_belts_number = db_manager.get_user_running_belts(session["user_id"])
+            
             return render_template('main_login.html', recent_belts_info= recent_belts_info,\
-                username= session['user_id'], login_time= login_time)
+                username= session['user_id'], login_time= login_time,\
+                    current_running_belts_number= current_running_belts_number, all_belts_number= all_belts_number)
         
         # 로그인 페이지 렌더링
         print("로그인되어 있지 않습니다!")
@@ -42,7 +46,7 @@ def login_user():
             flash("아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다.")
             return render_template('main_unlogin.html')
 
-        if user is not None and check_password_hash(user['password'], password):
+        else: 
             # 로그인 상태 및 시간 업데이트
             login_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             db_manager.update(db= Database.Users, collection= Collection.User,\
@@ -54,8 +58,11 @@ def login_user():
                     
             recent_belts_info = db_manager.get_user_recent_belts_image(session["user_id"])
             
+            current_running_belts_number, all_belts_number = db_manager.get_user_running_belts(session["user_id"])
+            
             # 로그인 성공, 홈 페이지로 리디렉트
-            return render_template('main_login.html', login_time= login_time, username= user_id, recent_belts_info= recent_belts_info)
+            return render_template('main_login.html', login_time= login_time, username= user_id, recent_belts_info= recent_belts_info,\
+                current_running_belts_number= current_running_belts_number, all_belts_number= all_belts_number)
 
 @login.route('/logout')
 def logout_user():
@@ -65,14 +72,6 @@ def logout_user():
 def get_login_blueprint():
     return login
 
-# def get_belts_recent_image(user_id):
-#     recent_belts_info = {}
-    
-#     databases = [db for db in db_manager.read(mode= Mode.ALL_DATABASES) if user_id in db]
-    
-#     for index, database in enumerate(databases):
-#         # 가장 최신 Collection return
-#             data = db_manager.get_user_recent_belts_image(database)
-#             recent_belts_info[database] = data
-    
-#     return recent_belts_info
+# def check_is_login():
+#     if "user_id" not in session:
+#         return redirect(url_for('login.login_user'))    

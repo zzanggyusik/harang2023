@@ -11,8 +11,7 @@ db_manager = DBManager()
 def show_remote():
     # 로그인 되어 있는지 확인
     if "user_id" not in session:
-        return redirect(url_for('login.login_user'))
-
+        return redirect(url_for('login.login_user'))    
     # 사용자가 소유한 벨트 데이터 조회
     belts_data = db_manager.get_user_recent_belts_image(session["user_id"])
     print(belts_data)
@@ -28,9 +27,9 @@ def show_remote():
 
 @remote.route('/detail/<belt_name>', methods=['GET'])
 def belt_detail(belt_name):
-    user_id = session.get('user_id')
-    if not user_id:
-        return redirect(url_for('login.login_user'))
+    # 로그인 되어 있는지 확인
+    if "user_id" not in session:
+        return redirect(url_for('login.login_user'))   
 
     belt_data = db_manager.find_belt_by_name_and_user_id(belt_name, user_id)
 
