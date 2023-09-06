@@ -31,8 +31,7 @@ def belt_detail(belt_id):
     # 로그인 되어 있는지 확인
     if "user_id" not in session:
         return redirect(url_for('login.login_user'))    
-
-
+    
     if '"' in belt_id:
         pass
     
@@ -48,7 +47,6 @@ def belt_detail(belt_id):
         
         time_now = datetime.datetime.now().strftime('%Y-%m-%d/%H:%M:%S')
         
-        print(belt_config)
         
         return render_template('remote_detail.html',
                             belt_id= belt_id,
@@ -56,7 +54,22 @@ def belt_detail(belt_id):
                             recent_belt_document= recent_belt_document,
                             time_now = time_now)
 
-
+@remote.route('/detail/<belt_id>/start', methods=['GET'])
+def remote_start(belt_id):
+    # 로그인 되어 있는지 확인
+    if "user_id" not in session:
+        return redirect(url_for('login.login_user'))  
+    
+    return "Start!"
+    
+@remote.route('/detail/<belt_id>/stop', methods=['GET'])
+def remote_stop(belt_id):    
+    # 로그인 되어 있는지 확인
+    if "user_id" not in session:
+        return redirect(url_for('login.login_user'))  
+    
+    return "Stop!"    
+        
 
 
 def get_remote_blueprint():
