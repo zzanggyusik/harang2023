@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, url_for
 from .db_manager import DBManager
+from .instance.db_config import *
 from dateutil.parser import parse
 
 remote = Blueprint("remote", __name__, url_prefix="/remote")
@@ -9,32 +10,21 @@ db_manager = DBManager()
 @remote.route('/', methods=['GET'])
 def show_remote():
     # 로그인 되어 있는지 확인
-    user_id = session.get('user_id')
-    if not user_id:
+    if "user_id" not in session:
         return redirect(url_for('login.login_user'))
 
     # 사용자가 소유한 벨트 데이터 조회
-    belts_data = list(db_manager.find_belts_by_user_id(user_id))
-    # print(f"Belts Data for user {user_id}: {belts_data}")  # 로깅
-
-    # 필요한 데이터 형식으로 가공
-    belts_info = []
-    for belt_data in belts_data:
-        belt_info = {
-            'belt_name': belt_data.get('belt_name', 'Unknown Name'),
-            'kind': belt_data.get('kind', 'Unknown Kind'),
-            'status': belt_data.get('status', 'Unknown Status')
-        }
-        if 'images' in belt_data and belt_data['images']:
-            belt_data['images'].sort(key=lambda x: parse(x['time_uploaded']), reverse=True)
-            belt_info['image_path'] = belt_data['images'][0]['url']  # 'url' 필드로 접근
-        else:
-            belt_info['image_path'] = 'default_image_path'
-
-        belts_info.append(belt_info)
-
-    return render_template('remote.html', belts=belts_info)
-
+    belts_data = db_manager.get_user_recent_belts_image(session["user_id"])
+    print(belts_data)
+    
+    for database, value in belts_data.items():
+        config = db_manager.read(db= database, collection=Collection.Config)
+        print(config["running_state"])
+        if belts_data[database]:
+            belts_data[database]["running_state"] = config["running_state"]
+            belts_data[database]["belt_name"] = config["belt_name"]
+    
+    return render_template('remote.html', belts_data= belts_data)
 
 @remote.route('/detail/<belt_name>', methods=['GET'])
 def belt_detail(belt_name):

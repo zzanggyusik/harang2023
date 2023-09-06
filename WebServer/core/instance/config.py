@@ -22,7 +22,7 @@ class Network():
 
 # Flask Config    
 class FlaskConfig(Network):
-    def __init__(self, _host = "0.0.0.0", _port = 5000):
+    def __init__(self, _host = "0.0.0.0", _port = 5050):
         super().__init__(_host, _port)
         self.__secret_key: str = "harang123!!"  
         self.__session_type: str  = "filesystem"

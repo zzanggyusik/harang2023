@@ -1,24 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Registed Convayor blet</h2>
+<h3>Registered Conveyor Belt</h3>
 
 <div class="belt-data-container">
-    {% for belt in belts %}
+    {% for belt_id, belt_data in belts_data.items() %}
         <div class="belt-item">
             <div class="belt-image">
-                <a href="{{ url_for('remote.belt_detail', belt_name=belt.belt_name) }}">
-                    <img src="{{ belt.image_path }}" alt="{{ belt.belt_name }}" />
+                <a href="{{ url_for('remote.belt_detail', belt_name=belt_data.img_name) }}">
+                    <img src="{{ belt_data.img_path }}" alt="{{ belt_data.belt_name }}" />
                 </a>
-                <div class="detection-circle {% if belt.status == 'true' %}detection-true{% endif %}"></div>
+                <div class="detection-circle {% if belt_data.running_state and belt_data.running_state == 'true' %}detection-true{% endif %}"></div>
             </div>
-                <p>Name: {{ belt.belt_name }}</p>
-                <p>Kind: {{ belt.kind }}</p>
+            <p>Name: {{ belt_data.belt_name }}</p>
+            <!--<p>Kind: {{ belt_data.kind }}</p>-->
         </div>
     {% endfor %}
 </div>
 {% endblock %}
 
 
+WebServer\core\static\images\dog1.jpeg
 
 

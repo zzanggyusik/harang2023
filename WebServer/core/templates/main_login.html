@@ -20,28 +20,54 @@
 
 <link href="{{ url_for('static', filename='css/main_login.css') }}" rel="stylesheet">
 
-<h3>{{ login_time }}</h3>
+<h3>접속 시간 : {{ login_time }}</h3>
 <h3>반갑습니다, {{ username }}님!</h3>
 
 <!-- 간격을 주기 위한 빈 요소 추가 -->
 <div class="spacing"></div>
 
-<div class="container">
-    <div class="d-flex flex-wrap flex-md-nowrap justify-content-center">
-        {% for belt_id, belt_data in recent_belts_info.items() %}
-            <div class="belt-container">
-                <h3>{{ belt_id }}</h3>
-                {% if belt_data is not none %}
-                    <img src="{{ url_for('static', filename=belt_data.image_path) }}" alt="cb{{ loop.index }} image" class="belt-image">
-                {% else %}
-                    <h3>No data</h3>
-                {% endif %}
-            </div>
-
-            <!-- 간격을 주기 위한 빈 요소 추가 -->
-            <div class="spacing"></div>
-        {% endfor %}
+<h3>My Panel</h3>
+    <div class="my-panel">
+        <div class="panel-item">
+            <a href="/remote" class="panel-link">
+                <div class="panel-icon">🔗</div>
+                <div class="panel-label">Remote</div>
+            </a>
+        </div>
+        <div class="panel-item">
+            <a href="/history" class="panel-link">
+                <div class="panel-icon">🕒</div>
+                <div class="panel-label">History</div>
+            </a>
+        </div>
+        <div class="panel-item">
+            <a href="/search" class="panel-link">
+                <div class="panel-icon">🔍</div>
+                <div class="panel-label">Search</div>
+            </a>
+        </div>
     </div>
-</div>
 
+<h3>AI Recommend</h3>
+    <div class="ai-recommend">
+        <div class="recommend-item">
+            <a href="/best-crops" class="recommend-link">
+                <div class="recommend-icon">🌾</div>
+                <div class="recommend-label">Best crops for each season</div>
+            </a>
+        </div>
+        <div class="recommend-item">
+            <a href="/farmer-month" class="recommend-link">
+                <div class="recommend-icon">🏆</div>
+                <div class="recommend-label">Farmer of the month</div>
+            </a>
+        </div>
+        <div class="recommend-item">
+            <a href="/farming-tips" class="recommend-link">
+                <div class="recommend-icon">💡</div>
+                <div class="recommend-label">Farming Tips</div>
+            </a>
+        </div>
+    </div>
+    
 {% endblock %}

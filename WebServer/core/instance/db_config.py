@@ -11,7 +11,7 @@ class Database():
 
 class Collection():
     User = "User"
-    Create_info = "Create_info"
+    Config = "Config"
         
 class Key():
     user_id = "user_id"
@@ -22,7 +22,7 @@ class Mode(Enum):
     MANY = auto()
     ALL_DATABASES = auto()
     ALL_COLLECTIONS = auto()
-    MAIN_IMAGE = auto()
+    
     
 
     
