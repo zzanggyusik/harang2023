@@ -22,7 +22,7 @@
         <!-- 실시간 IPCam 영상 -->
         <div class="belt-cam">
             <h3>Current belt - cam</h3>
-            <iframe src="{{ ipcam_url }}" width="100%" height="300px"></iframe>
+            <iframe src="http://{{belt_config.belt_ip}}:{{belt_config.belt_port}}/stream" width="100%" height="300px"></iframe>
         </div>
     </div>
 
