@@ -4,6 +4,14 @@
 
 {% block content %}
 
+{%with messages = get_flashed_messages()%}
+    {%if messages %}
+        <script type="text/javascript">
+            alert("{{messages[-1]}}");
+        </script>
+    {%endif%}
+{%endwith%}
+
 <link href="{{ url_for('static', filename='css/main_unlogin.css') }}" rel="stylesheet">
 
 <div class="d-flex justify-content-center">

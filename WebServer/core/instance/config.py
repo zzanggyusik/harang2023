@@ -48,3 +48,9 @@ class FlaskConfig(Network):
 class MongoDBConfig(Network):    
     def __init__(self, _host = "172.17.14.167", _port = 27017):
         super().__init__(_host, _port)
+        
+class XrayConfig(Network):
+    def __init__(self, host= "172.17.154.192", port= 9297):
+        super().__init__(host, port)
+        
+        self.message = "shot"

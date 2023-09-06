@@ -1,12 +1,21 @@
-from flask import Blueprint, render_template, session, redirect, url_for
+from flask import Blueprint, render_template, session, redirect, url_for, flash
 from .db_manager import DBManager
 from .instance.db_config import *
+from .instance.config import *
 from dateutil.parser import parse
 import datetime
+from .XrayController import XrayController
+import zmq
 
 remote = Blueprint("remote", __name__, url_prefix="/remote")
 
 db_manager = DBManager()
+xray_config = XrayConfig()
+
+context = zmq.Context()
+dealer = context.socket(zmq.DEALER)
+dealer.connect(f'tcp://{xray_config.host}:{xray_config.port}')
+
 
 @remote.route('/', methods=['GET'])
 def show_remote():
@@ -60,7 +69,15 @@ def remote_start(belt_id):
     if "user_id" not in session:
         return redirect(url_for('login.login_user'))  
     
-    return "Start!"
+    result = dealer.send_string(xray_config.message)
+    
+    
+    if result:
+        flash("Start Success!")
+    else:
+        flash("Start Fail!")
+    
+    return redirect(url_for('remote.belt_detail', belt_id= belt_id))
     
 @remote.route('/detail/<belt_id>/stop', methods=['GET'])
 def remote_stop(belt_id):    
