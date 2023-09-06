@@ -59,14 +59,19 @@ class DBManager:
         except:
             return "DB Delete: Error Occurred"
     
+    def get_user_convayor_belts(self, user_id):
+        return [db for db in self.read(mode= Mode.ALL_DATABASES) if user_id in db]        
+    
+    def get_user_recent_belt_log(self, database):
+        return sorted(self.mongo_client[database].list_collection_names(), reverse= True)[0]   
+    
     def get_user_recent_belts_image(self, user_id) -> dict:
         recent_belts_info = {}
         
-        user_convayor_belts = [db for db in self.read(mode= Mode.ALL_DATABASES) if user_id in db]        
+        user_convayor_belts = self.get_user_convayor_belts(user_id)
         
         for index, database in enumerate(user_convayor_belts):
-            recent_belt_log = \
-                sorted(self.mongo_client[database].list_collection_names(), reverse= True)[0]        
+            recent_belt_log = self.get_user_recent_belt_log(database)    
             
             if recent_belt_log == "Config":
                 data= None

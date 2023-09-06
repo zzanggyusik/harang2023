@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, session, redirect, url_for
 from .db_manager import DBManager
 from .instance.db_config import *
 from dateutil.parser import parse
+import datetime
 
 remote = Blueprint("remote", __name__, url_prefix="/remote")
 
@@ -21,36 +22,39 @@ def show_remote():
         if belts_data[database]:
             belts_data[database]["running_state"] = config["running_state"]
             belts_data[database]["belt_name"] = config["belt_name"]
-
+    print(belts_data)
+    
     return render_template('remote.html', belts_data= belts_data)
 
 @remote.route('/detail/<belt_id>', methods=['GET'])
 def belt_detail(belt_id):
     # 로그인 되어 있는지 확인
     if "user_id" not in session:
-        return redirect(url_for('login.login_user'))   
+        return redirect(url_for('login.login_user'))    
+
+
+    if '"' in belt_id:
+        pass
     
-    belt_data = db_manager.find_belt_by_name_and_user_id(belt_name, session["user_id"]) 
-
-    if not belt_data:
-        return "Belt not found!", 404
-
-    if 'images' in belt_data and belt_data['images']:
-        belt_data['images'].sort(key=lambda x: parse(x['time_uploaded']), reverse=True)
-        image_path = belt_data['images'][0]['url']
-        time_uploaded = belt_data['images'][0]['time_uploaded']
     else:
-        image_path = 'default_image_path'
-        time_uploaded = 'Unknown Time'
-
-    return render_template('remote_detail.html',
-                           belt=belt_data,
-                           image_path=image_path,
-                           belt_name=belt_data.get('belt_name'),
-                           kind=belt_data.get('kind'),
-                           time_uploaded=time_uploaded,
-                           detection=belt_data.get('detection', 'Unknown Detection'),
-                           ipcam_url=belt_data.get('ipcam_url', 'Unknown URL'))
+        belt_config = db_manager.read(db= belt_id, collection= Collection.Config)
+        
+        if not belt_config:
+            return "Belt not found!", 404        
+        
+        recent_belt_log = db_manager.get_user_recent_belt_log(belt_id)
+        
+        recent_belt_document = db_manager.mongo_client[belt_id][recent_belt_log].find_one(sort= [("time_uploaded", -1)])
+        
+        time_now = datetime.datetime.now().strftime('%Y-%m-%d/%H:%M:%S')
+        
+        print(belt_config)
+        
+        return render_template('remote_detail.html',
+                            belt_id= belt_id,
+                            belt_config= belt_config,
+                            recent_belt_document= recent_belt_document,
+                            time_now = time_now)
 
 
 

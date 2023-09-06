@@ -9,7 +9,7 @@
         <div class="belt-item">
             <div class="belt-image">
                 <a href="{{ url_for('remote.belt_detail', belt_id=belt_id) }}">
-                    <img src="{{ belt_data.img_path }}" alt="{{ belt_data.belt_name }}" />
+                    <img src="{{ belt_data.img_path }}" alt="{{ belt_id.split("_")[1] }}" />
                 </a>
                 <div class="detection-circle {% if belt_data.running_state and belt_data.running_state == 'true' %}detection-true{% endif %}"></div>
             </div>
