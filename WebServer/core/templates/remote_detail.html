@@ -6,7 +6,7 @@
         <!-- 벨트 X-ray 이미지 및 상세 정보 -->
         <div class="belt-detail">
             <h3>Current belt - {{ belt_id }}</h3>
-            <img src={{ recent_belt_document.img_path }} alt="{{ recent_belt_document.img_name }}" />
+            <img src={{ recent_belt_document.img_path }}/>
             
             <h4>Detail Info</h4>
             <ul class="detail-info">
@@ -28,8 +28,13 @@
 
     <!-- 원격 제어 버튼 및 로그 -->
     <div class="belt-control-buttons">
-        <button type="button" class="btn btn-success">Start</button>
-        <button type="button" class="btn btn-danger">Stop</button>
+        <form action= "{{url_for('remote.remote_start', belt_id=belt_id)}}", method= "get">
+            <button type="submit" class="btn btn-success">Start</button>
+        </form>
+
+        <form action= "{{url_for('remote.remote_stop', belt_id=belt_id)}}", method= "get">
+            <button type="submit" class="btn btn-danger">Stop</button>  
+        </form>
     </div>
 
     <div class="belt-log">
