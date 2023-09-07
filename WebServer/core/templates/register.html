@@ -76,6 +76,23 @@ Register
             alert(data.msg);
         });
     }
+
+    // 벨트이름 중복검사
+    function validateForm(event) {
+        var beltNameElements = document.querySelectorAll('input[name="belt_name[]"]');
+        var beltNames = Array.from(beltNameElements).map(element => element.value);
+        
+        var nameCount = {};
+        for(var name of beltNames) {
+            nameCount[name] = (nameCount[name] || 0) + 1;
+            if(nameCount[name] > 1) {
+                alert('벨트 이름이 중복되었습니다: ' + name);
+                event.preventDefault(); // 양식 제출을 중지
+                return false;
+            }
+        }
+        return true;
+    }
 </script>
 
 {% with messages = get_flashed_messages() %}
@@ -88,7 +105,7 @@ Register
     {% endif %}
 {% endwith %}
 
-<form action="/register" method="post" class="mt-4 col-md-4 centered-form">
+<form action="/register" method="post" class="mt-4 col-md-4 centered-form" onsubmit="return validateForm(event)">
     <div class="form-group">
         <label for="id">ID</label>
         <div class="input-group">
