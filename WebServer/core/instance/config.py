@@ -54,3 +54,6 @@ class XrayConfig(Network):
         super().__init__(host, port)
         
         self.message = "shot"
+        #start 메시지, stop 메시지 추가
+        self.start_message = "start"
+        self.stop_message = "stop"

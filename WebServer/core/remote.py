@@ -69,10 +69,13 @@ def remote_start(belt_id):
     if "user_id" not in session:
         return redirect(url_for('login.login_user'))  
     
-    result = dealer.send_string(xray_config.message)
+    # Start 메시지 전송
+    dealer.send_string(xray_config.start_message)
     
+    # 응답 받기
+    response = dealer.recv_string()
     
-    if result:
+    if response == "Start Success":
         flash("Start Success!")
     else:
         flash("Start Fail!")
@@ -85,7 +88,18 @@ def remote_stop(belt_id):
     if "user_id" not in session:
         return redirect(url_for('login.login_user'))  
     
-    return "Stop!"    
+    # Stop 메시지 전송
+    dealer.send_string(xray_config.stop_message)
+    
+    # 응답 받기
+    response = dealer.recv_string()
+    
+    if response == "Stop Success":
+        flash("Stop Success!")
+    else:
+        flash("Stop Fail!")
+    
+    return redirect(url_for('remote.belt_detail', belt_id= belt_id))    
         
 
 
