@@ -6,6 +6,7 @@ from dateutil.parser import parse
 import datetime
 from .XrayController import XrayController
 import zmq
+import time
 
 remote = Blueprint("remote", __name__, url_prefix="/remote")
 
@@ -15,7 +16,6 @@ xray_config = XrayConfig()
 context = zmq.Context()
 dealer = context.socket(zmq.DEALER)
 dealer.connect(f'tcp://{xray_config.host}:{xray_config.port}')
-
 
 @remote.route('/', methods=['GET'])
 def show_remote():
@@ -69,14 +69,24 @@ def remote_start(belt_id):
     if "user_id" not in session:
         return redirect(url_for('login.login_user'))  
     
-    result = dealer.send_string(xray_config.message)
+    # Edge Server의 컨베이어 벨트 트리거링
+    dealer.send_string(xray_config.message)
+    
+    session["start_count"] = 0
+    # TODO Edge Server로 부터 동작이 정상 완료됐다는 수신 필요
+    while (session["start_count"] < 5):
+        # message = dealer.recv_string()
+        # print(message)
+        session["start_count"] += 1
+        print(session["start_count"])
+        time.sleep(1)
+        
+        
+
     
     
-    if result:
-        flash("Start Success!")
-    else:
-        flash("Start Fail!")
-    
+    flash("Start Success!")
+
     return redirect(url_for('remote.belt_detail', belt_id= belt_id))
     
 @remote.route('/detail/<belt_id>/stop', methods=['GET'])
