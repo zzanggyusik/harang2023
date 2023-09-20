@@ -17,6 +17,7 @@ class XrayController:
     #     message = self.xray_config.message
     #     self.dealer.send_string(message)
     
+    # 현재는 print로 작동 메시지만 출력, 제어 코드는 추후에 따로 작성
     def shot(self, belt_id):
         print("Shot Activated {belt_id}")
         message = self.xray_config.message.format(belt_id=belt_id)
