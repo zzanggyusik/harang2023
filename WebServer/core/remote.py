@@ -6,6 +6,12 @@ from dateutil.parser import parse
 import datetime
 from .XrayController import XrayController
 import zmq
+import requests
+from PIL import Image
+import numpy as np
+import io
+import base64
+from config import MainServerConfig
 
 remote = Blueprint("remote", __name__, url_prefix="/remote")
 
@@ -101,7 +107,47 @@ def remote_stop(belt_id):
     
     return redirect(url_for('remote.belt_detail', belt_id= belt_id))    
         
+@remote.route('/detail/<belt_id>/request_xray_data', methods=['POST'])
+def request_xray_data(belt_id):
+    # Edge Server에 요청을 보냅니다.
+    dealer.send_string("Request X-ray Data")
 
+    # 받은 응답을 파싱하여 이미지 데이터를 획득합니다.
+    response = dealer.recv_string()
+    
+    status, image_data_base64 = response.split(":")
+
+    if status == "Success":
+        # Base64로 인코딩된 이미지 데이터를 디코딩합니다.
+        image_data = base64.b64decode(image_data_base64)
+
+        # 이미지 데이터를 PIL Image 객체로 변환합니다.
+        image = Image.open(io.BytesIO(image_data))
+        
+        # 여기서 원하는 포맷(tiff, JPEG 등)으로 저장하거나 처리할 수 있습니다.
+        numpy_data = np.array(image)
+        
+        # 처리된 데이터를 메인 서버로 전송
+        send_numpy_data_to_main_server(numpy_data)
+        
+        return "Data processing successful!", 200
+    else:
+        return "Failed to request data from Edge Server!", 400
+
+def send_numpy_data_to_main_server(data):
+    # numpy 배열을 리스트로 변환
+    data_list = data.tolist()
+
+    # 메인 서버의 주소 
+    main_server = MainServerConfig()
+
+    # 데이터를 JSON 형태로 변환하여 전송
+    response = requests.post(main_server, json={"data": data_list})
+
+    if response.status_code == 200:
+        print("Data sent successfully!")
+    else:
+        print("Failed to send data:", response.text)
 
 def get_remote_blueprint():
     return remote
