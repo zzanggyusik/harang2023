@@ -1,13 +1,17 @@
-from flask import Blueprint, render_template, session, redirect, url_for, flash
-from .db_manager import DBManager
-from .instance.db_config import *
-from .instance.config import *
+from flask import render_template, session, redirect, url_for, flash
+from ..db_manager import DBManager
+from ..instance.db_config import *
+from ..instance.config import *
 from dateutil.parser import parse
 import datetime
-from .XrayController import XrayController
+from ..XrayController import XrayController
 import zmq
-
-remote = Blueprint("remote", __name__, url_prefix="/remote")
+import requests
+from PIL import Image
+import numpy as np
+import io
+import base64
+from config import MainServerConfig
 
 db_manager = DBManager()
 xray_config = XrayConfig()
@@ -16,8 +20,6 @@ context = zmq.Context()
 dealer = context.socket(zmq.DEALER)
 dealer.connect(f'tcp://{xray_config.host}:{xray_config.port}')
 
-
-@remote.route('/', methods=['GET'])
 def show_remote():
     # 로그인 되어 있는지 확인
     if "user_id" not in session:
@@ -35,7 +37,6 @@ def show_remote():
     
     return render_template('remote.html', belts_data= belts_data)
 
-@remote.route('/detail/<belt_id>', methods=['GET'])
 def belt_detail(belt_id):
     # 로그인 되어 있는지 확인
     if "user_id" not in session:
@@ -63,31 +64,64 @@ def belt_detail(belt_id):
                             recent_belt_document= recent_belt_document,
                             time_now = time_now)
 
-@remote.route('/detail/<belt_id>/start', methods=['GET'])
 def remote_start(belt_id):
     # 로그인 되어 있는지 확인
     if "user_id" not in session:
         return redirect(url_for('login.login_user'))  
     
-    result = dealer.send_string(xray_config.message)
+    # Start 메시지 전송
+    dealer.send_string(xray_config.start_message)
     
+    # 응답 받기
+    response = dealer.recv_string()
     
-    if result:
+    if response == "Start Success":
         flash("Start Success!")
     else:
         flash("Start Fail!")
     
     return redirect(url_for('remote.belt_detail', belt_id= belt_id))
-    
-@remote.route('/detail/<belt_id>/stop', methods=['GET'])
-def remote_stop(belt_id):    
+
+def remote_stop(belt_id):
     # 로그인 되어 있는지 확인
     if "user_id" not in session:
         return redirect(url_for('login.login_user'))  
     
-    return "Stop!"    
+    # Stop 메시지 전송
+    dealer.send_string(xray_config.stop_message)
+    
+    # 응답 받기
+    response = dealer.recv_string()
+    
+    if response == "Stop Success":
+        flash("Stop Success!")
+    else:
+        flash("Stop Fail!")
+    
+    return redirect(url_for('remote.belt_detail', belt_id= belt_id))  
+
+def request_xray_data(belt_id):
+    # Edge Server에 요청을 보냅니다.
+    dealer.send_string("Request X-ray Data")
+
+    # 받은 응답을 파싱하여 이미지 데이터를 획득합니다.
+    response = dealer.recv_string()
+    
+    status, image_data_base64 = response.split(":")
+
+    if status == "Success":
+        # Base64로 인코딩된 이미지 데이터를 디코딩합니다.
+        image_data = base64.b64decode(image_data_base64)
+
+        # 이미지 데이터를 PIL Image 객체로 변환합니다.
+        image = Image.open(io.BytesIO(image_data))
         
-
-
-def get_remote_blueprint():
-    return remote
+        # 여기서 원하는 포맷(tiff, JPEG 등)으로 저장하거나 처리할 수 있습니다.
+        numpy_data = np.array(image)
+        
+        # 처리된 데이터를 메인 서버로 전송
+        send_numpy_data_to_main_server(numpy_data)
+        
+        return "Data processing successful!", 200
+    else:
+        return "Failed to request data from Edge Server!", 400

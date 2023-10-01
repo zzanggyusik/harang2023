@@ -22,9 +22,3 @@ class Mode(Enum):
     MANY = auto()
     ALL_DATABASES = auto()
     ALL_COLLECTIONS = auto()
-    
-    
-
-    
-
-    

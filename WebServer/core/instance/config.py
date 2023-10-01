@@ -19,6 +19,22 @@ class Network():
     def port(self, value):
         self.__port = value
     
+class MainServerConfig(Network):
+    def __init__(self, host="main-server-url", port=80, endpoint="api/receive_data"):
+        super().__init__(host, port)
+        self.__endpoint = endpoint
+
+    @property
+    def endpoint(self):
+        return self.__endpoint
+
+    @endpoint.setter
+    def endpoint(self, value):
+        self.__endpoint = value
+
+    @property
+    def full_url(self):
+        return f"http://{self.host}:{self.port}/{self.endpoint}"
 
 # Flask Config    
 class FlaskConfig(Network):
@@ -54,3 +70,6 @@ class XrayConfig(Network):
         super().__init__(host, port)
         
         self.message = "shot"
+        #start 메시지, stop 메시지 추가
+        self.start_message = "start"
+        self.stop_message = "stop"
