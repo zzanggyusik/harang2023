@@ -12,24 +12,23 @@ db_manager = DBManager()
 def register_user():
     if request.method == 'GET':
         return render_template('register.html')
-    
+
     if request.method == 'POST':
         user_id = request.form['user_id']
         password = request.form['password']
         password_check = request.form['password_check']
-        
+        user_type = request.form['user_type']  # 회원 유형 필드를 받아옵니다.
+
         belt_name_list = request.form.getlist("belt_name[]")
         belt_type_list = request.form.getlist("belt_type[]")
         belt_ip_list = request.form.getlist("belt_ip[]")
         belt_port_list = request.form.getlist("belt_port[]")
-        
+
         if password != password_check:
-            # 비밀번호와 확인이 일치하지 않을 때
             flash("패스워드가 일치하지 않습니다! 다시 한번 입력해주세요.")
             return render_template('register.html')
 
-        if db_manager.read(db= Database.Users, collection= Collection.User, key= Key.user_id, value= user_id):
-            # 이미 존재하는 아이디일 경우
+        if db_manager.read(db=Database.Users, collection=Collection.User, key=Key.user_id, value=user_id):
             flash("user_id already exists")
             return render_template('register.html')
 
@@ -37,10 +36,11 @@ def register_user():
         user_data = {
             'user_id': user_id,
             'password': password_hash,  # 해싱된 비밀번호 저장
+            'user_type': user_type,  # 회원 유형 추가
             'belts': belt_name_list
         }
-        
-        db_manager.create(db= Database.Users, collection= Collection.User, value= user_data)
+
+        db_manager.create(db=Database.Users, collection=Collection.User, value=user_data)
 
         # 사용자가 선택한 각 벨트에 대해 Belt Document 생성
         for index, value in enumerate(belt_name_list):
