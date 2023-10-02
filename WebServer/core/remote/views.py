@@ -1,4 +1,6 @@
 from flask import render_template, session, redirect, url_for, flash
+
+from WebServer.core.remote.utils import send_numpy_data_to_main_server
 from ..db_manager import DBManager
 from ..instance.db_config import *
 from ..instance.config import *
@@ -11,7 +13,7 @@ from PIL import Image
 import numpy as np
 import io
 import base64
-from config import MainServerConfig
+# from config import MainServerConfig
 
 db_manager = DBManager()
 xray_config = XrayConfig()
@@ -65,6 +67,8 @@ def belt_detail(belt_id):
                             time_now = time_now)
 
 def remote_start(belt_id):
+    from ..instance.config import XrayConfig  # 이동
+    xray_config = XrayConfig()  # 이동
     # 로그인 되어 있는지 확인
     if "user_id" not in session:
         return redirect(url_for('login.login_user'))  

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Registered Conveyor Belt</h3>
+
+<div class="belt-data-container">
+    {% for belt_id, belt_data in belts_data.items() %}
+        <div class="belt-item">
+            <div class="belt-image">
+                <a href="{{ url_for('remote.belt_detail', belt_id=belt_id) }}">
+                    <img src="{{ belt_data.img_path }}" alt="{{ belt_id.split("_")[1] }}" />
+                </a>
+                <div class="detection-circle {% if belt_data.running_state and belt_data.running_state == 'true' %}detection-true{% endif %}"></div>
+            </div>
+            <p>Belt Name: {{ belt_id.split("_")[1] }}</p>
+            <!--<p>Kind: {{ belt_data.kind }}</p>-->
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,4 +1,8 @@
-from .views import show_remote, belt_detail, remote_start, remote_stop, request_xray_data
+from .views import (
+    show_remote, belt_detail,
+    remote_start, remote_stop,
+    request_xray_data
+)
     
 
 def initialize_routes(remote):

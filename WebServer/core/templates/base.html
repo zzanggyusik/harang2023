@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/base.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/history.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/remote.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/remote_detail.css') }}" rel="stylesheet">
+
+    <title>{% block title %}Default Title{% endblock %}</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <a href = "/">
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" class="img-fluid mb-3 mt-4 ml-4">
+        </a>
+        
+        {% if request.endpoint != 'register' and ((request.endpoint == 'home') or (request.endpoint != 'home'))%}
+        <!-- 네비게이션 바 -->
+        <div class="navbar-top-right">
+            <a href="{{ url_for('remote.show_remote') }}">Remote</a> <span class="mx-2">|</span>
+            <a href="{{ url_for('history.show_history') }}">History</a></span> <span class="mx-2">|</span>
+            <span class="text-muted">Search</span> <span class="mx-2">|</span>
+            <span class="text-muted">My Page</span>
+        </div>
+        {% endif %}
+        
+        <div class="content-container">
+            {% block content %}{% endblock %}
+        </div>
+
+        {% if session.get["user_id"] is not none %}
+            <div class="logout-link-container">
+                <a href="/logout">로그아웃</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

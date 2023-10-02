@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<style>
+    .container {
+        text-align: center; /* 가운데 정렬 설정 */
+    }
+
+    .belt-container {
+        margin: 0 400px; /* 좌우 200px 마진 설정 */
+        display: inline-block; /* 인라인 블록으로 변경하여 좌우 정렬 설정 */
+    }
+
+    .spacing {
+        margin-bottom: 100px; /* 상하 간격 설정 */
+    }
+</style>
+
+<link href="{{ url_for('static', filename='css/main_login.css') }}" rel="stylesheet">
+
+<h3>접속 시간 : {{ login_time }}</h3>
+<h3>반갑습니다, {{ username }}님!</h3>
+
+<!-- 간격을 주기 위한 빈 요소 추가 -->
+<div class="spacing"></div>
+
+<h3>My Panel</h3>
+    <div class="my-panel">
+        <div class="panel-item">
+            <a href="/remote" class="panel-link">
+                <div class="panel-icon">🔗</div>
+                <div class="panel-label">Remote</div>
+                <div class="panel-label">{{ current_running_belts_number }} / {{ all_belts_number }}</div>
+            </a>
+        </div>
+        <div class="panel-item">
+            <a href="/history" class="panel-link">
+                <div class="panel-icon">🕒</div>
+                <div class="panel-label">History</div>
+            </a>
+        </div>
+        <div class="panel-item">
+            <a href="/search" class="panel-link">
+                <div class="panel-icon">🔍</div>
+                <div class="panel-label">Search</div>
+            </a>
+        </div>
+    </div>
+
+<h3>AI Recommend</h3>
+    <div class="ai-recommend">
+        <div class="recommend-item">
+            <a href="/best-crops" class="recommend-link">
+                <div class="recommend-icon">🌾</div>
+                <div class="recommend-label">Best crops for each season</div>
+            </a>
+        </div>
+        <div class="recommend-item">
+            <a href="/farmer-month" class="recommend-link">
+                <div class="recommend-icon">🏆</div>
+                <div class="recommend-label">Farmer of the month</div>
+            </a>
+        </div>
+        <div class="recommend-item">
+            <a href="/farming-tips" class="recommend-link">
+                <div class="recommend-icon">💡</div>
+                <div class="recommend-label">Farming Tips</div>
+            </a>
+        </div>
+    </div>
+    
+{% endblock %}

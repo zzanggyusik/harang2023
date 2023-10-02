@@ -1,7 +1,9 @@
 from flask import Flask
 
 from .instance.config import FlaskConfig, MongoDBConfig
-from . import login, register, remote #mypage, history, market
+from .auth import login as login_blueprint
+from .auth import register as register_blueprint
+from .remote import remote as remote_blueprint
 from datetime import timedelta
 
 def create_app():
@@ -19,10 +21,10 @@ def create_app():
     # db = MongoEngine(app)
     # Session(app)
 
-    app.register_blueprint(login)
-    app.register_blueprint(register)
-    #app.register_blueprint(mypage)
-    app.register_blueprint(remote)
+    app.register_blueprint(login_blueprint)
+    #app.register_blueprint(mypage_blueprint)
+    app.register_blueprint(register_blueprint)
+    app.register_blueprint(remote_blueprint)
     #app.register_blueprint(history)
     #app.register_blueprint(market)
 
