@@ -46,7 +46,7 @@ class FlaskConfig(Network):
 
 # MongoDB Config
 class MongoDBConfig(Network):    
-    def __init__(self, _host = "172.17.14.167", _port = 27017):
+    def __init__(self, _host = "172.17.116.5", _port = 27017):
         super().__init__(_host, _port)
         
 class XrayConfig(Network):

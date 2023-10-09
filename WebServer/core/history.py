@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, url_for
 from .db_manager import DBManager
+from .instance.db_config import *
 from dateutil.parser import parse
 
 history = Blueprint("history", __name__, url_prefix="/history")
@@ -8,30 +9,50 @@ db_manager = DBManager()
 
 @history.route('/', methods=['GET'])
 def show_history():
-    user_id = session.get('user_id')  # 현재 로그인된 사용자 ID를 가져옵니다.
+    if "user_id" not in session:
+        return redirect(url_for('login.login_user'))    
     
-    if not user_id:
-        return redirect(url_for('login.login_user'))  # 만약 로그인이 되어있지 않다면 로그인 페이지로 리다이렉트합니다.
+    belts_db = db_manager.get_user_convayor_belts(session["user_id"])
+    belts_thumbnail = {}
     
-    belts_data = list(db_manager.find_belts_by_user_id(user_id))
-    all_belts_images = []  # 모든 벨트의 이미지들을 저장할 리스트
+    for db in belts_db:
+        collection = [col for col in db_manager.mongo_client[db].list_collection_names() if col not in "Config"]
+        for col in collection:
+            thumbnail_dict = {}
+            
+            # 콜렉션에 있는 도큐먼트 수 
+            document_count = db_manager.mongo_client[db][col].estimated_document_count()
+            
+            if document_count <= 1:
+                thumbnail_dict[col]= db_manager.read(db= db, collection= col)
+            
+            elif document_count < 6:
+                thumbnail_dict[col]= db_manager.read(db= db, collection= col, mode= Mode.MANY)
+                
+            else:
+                thumbnail_dict[col]= db_manager.read(db= db, collection= col, mode= Mode.MANY)[:6]
+            
+        belts_thumbnail[db] = thumbnail_dict 
+            
     
-    for belt_data in belts_data:
-        belt = db_manager.find_belt_by_id(belt_data['belt_id'])
-        user = db_manager.find_user_by_id(user_id)
-        images = belt.get('images', [])
-        images.sort(key=lambda x: parse(x['time_uploaded']), reverse=True)
-        
-        # 각 벨트에서 최근 6장의 이미지만 가져옵니다.
-        recent_images = images[:6]
+    # all_belts_images = []  # 모든 벨트의 이미지들을 저장할 리스트
+    
+    # for belt_data in belts_data:
+    #     belt = db_manager.find_belt_by_id(belt_data['belt_id'])
+    #     user = db_manager.find_user_by_id(user_id)
+    #     images = belt.get('images', [])
+    #     images.sort(key=lambda x: parse(x['time_uploaded']), reverse=True)
 
-        all_belts_images.append({
-            'username': user.get('username', 'Unknown'),
-            'belt_name': belt.get('name', 'Unknown'),
-            'recent_images': recent_images
-        })
+    #     # 각 벨트에서 최근 6장의 이미지만 가져옵니다.
+    #     recent_images = images[:6]
+
+    #     all_belts_images.append({
+    #         'username': user.get('username', 'Unknown'),
+    #         'belt_name': belt.get('name', 'Unknown'),
+    #         'recent_images': recent_images
+    #     })
     
-    return render_template('history.html', images=all_belts_images)
+    return render_template('history.html', belts_thumbnail= belts_thumbnail)
 
 @history.route('/detail', methods=['GET'])
 def show_history_detail():
