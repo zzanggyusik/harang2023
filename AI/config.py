@@ -1,13 +1,14 @@
 import random
 from datetime import datetime
 import tensorflow as tf
+import os
 
 class SeedConfig():
     fixed_seed = 42
     random_seed = random.randint(0, 1000)
     
 class DatasetConfig():
-    root_dir = 'dataset'
+    root_dir = 'dataset/train'
     
     def reshape(option):
         '''
@@ -45,3 +46,29 @@ class TrainConfig():
     
     batch_size = 50
     epochs = 10
+    
+class TestConfig():
+    root_dir = 'dataset/test'
+
+    test_dir = 'test/'
+    ex = '.jpg'
+    
+    IMG_SIZE = 224
+    IMG_SHAPE = (IMG_SIZE, IMG_SIZE, 3)
+    
+    model = 'model/best_model.h5'
+    
+    def reshape(option):
+        '''
+        option list(x, y, channel, astype)
+        x = 224
+        y = 224
+        channel = 3
+        astype = float32
+        '''
+        if option == 'x': return 224
+        elif option == 'y' : return 224
+        elif option == 'channel' : return 3
+        elif option == 'astype' : return 'float32'
+        
+    classes = os.listdir(f'{root_dir}/')
