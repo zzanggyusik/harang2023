@@ -39,6 +39,8 @@ class App():
                 pass
             
             else :
+                print(type(pred))
+                print(pred[0][0])
                 print('grapefruit')
 
             cv2.imshow("Apple Detection", frame)

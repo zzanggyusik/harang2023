@@ -4,9 +4,9 @@ __pycache__/
 *$py.class
 
 # AI Model
-.h5
+*.h5
 # Dataset
-.jpg
+*.jpg
 .DS_Store
 
 # C extensions
