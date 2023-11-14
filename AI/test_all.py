@@ -10,7 +10,11 @@ import matplotlib.pyplot as plt
 
 class AITest():
     def __init__(self):
-        self.get_dataset('apple')
+        mode = input(f'G : Grapefrit  B : Banana\n').lower()
+        if mode == 'g':        
+            self.get_dataset('Grapefruit White')
+        elif mode == 'b':
+            self.get_dataset('Banana')
         self.get_best_model()
         self.test()
     

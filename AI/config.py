@@ -8,7 +8,7 @@ class SeedConfig():
     random_seed = random.randint(0, 1000)
     
 class DatasetConfig():
-    root_dir = 'dataset/train'
+    root_dir = 'real_dataset/train'
     
     def reshape(option):
         '''
@@ -30,7 +30,7 @@ class TrainConfig():
     weight = 'imagenet'
     polling = 'max'
     
-    ignore_layer = 24
+    ignore_layer = 25
     
     MODEL_SAVE_DIR_PATH = 'model/'
     model_name = f'{datetime.now().strftime("%Y%m%d%H%M")}.h5'
@@ -45,7 +45,7 @@ class TrainConfig():
     metrics = ['accuracy']
     
     batch_size = 50
-    epochs = 10
+    epochs = 5
     
 class TestConfig():
     root_dir = 'dataset/test'
@@ -72,3 +72,8 @@ class TestConfig():
         elif option == 'astype' : return 'float32'
         
     classes = os.listdir(f'{root_dir}/')
+    
+class AppConfig():
+    model = 'model/best_model.h5'
+    
+    root_path = 'real_dataset'

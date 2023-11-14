@@ -84,7 +84,7 @@ class AITrain():
         X_train = np.array(X)
         Y_train = np.array(Y)
         
-        self.X_train, self.X_test, self.Y_train, self.Y_test = train_test_split(X_train, Y_train, test_size=0.2, shuffle=True)
+        self.X_train, self.X_test, self.Y_train, self.Y_test = train_test_split(X_train, Y_train, test_size=0.3, shuffle=True)
         self.xy = (self.X_train, self.X_test, self.Y_train, self.Y_test)
     
     def reshape_dataset(self, data):
