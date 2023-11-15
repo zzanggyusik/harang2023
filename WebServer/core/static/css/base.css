@@ -14,6 +14,13 @@ img.img-fluid {
     right: 2%;
 }
 
+.body-image{
+    /* position: relative; */
+    width: 250px; /* 수정: 이미지 너비를 늘립니다 */
+    height: 250px; /* 수정: 이미지 높이를 늘립니다 */
+    margin-right: 10px;
+}
+
 .content-container {
     margin-left: 3%;
     margin-right: 3%;

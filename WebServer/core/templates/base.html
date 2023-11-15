@@ -16,9 +16,11 @@
 
 <body>
     <div class="wrapper">
-        <a href = "/">
-        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" class="img-fluid mb-3 mt-4 ml-4">
-        </a>
+        <div class= "body-image">
+            <a href = "/">
+            <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" class="img-fluid mb-3 mt-4 ml-4">
+            </a>
+        </div>
         
         {% if request.endpoint != 'register' and ((request.endpoint == 'home') or (request.endpoint != 'home'))%}
         <!-- 네비게이션 바 -->

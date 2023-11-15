@@ -18,8 +18,8 @@ class ImageManager():
             
 if __name__ == "__main__":
     # 입력 및 출력 파일 경로 설정
-    input_file = "./static/images/Image158_20230906121324.tif"  # .tif 파일의 경로
-    output_file = "./static/images/Image158_20230906121324.jpeg"  # .jpeg로 변환한 이미지의 저장 경로
+    input_file = "./static/images/Image158_20231115042555.tif"  # .tif 파일의 경로
+    output_file = "./static/images/Image158_20231115042555.jpeg"  # .jpeg로 변환한 이미지의 저장 경로
 
     # .tif를 .jpeg로 변환
     ImageManager().convert_tif_to_jpeg(input_file, output_file)

@@ -27,16 +27,17 @@ body {
 
 .belt-images {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     flex-wrap: wrap;
     padding: 10px;
 }
 
 .image-box {
-    width: calc(16.66% - 10px); /* For 6 images */
     margin: 5px;
     overflow: hidden;
     border-radius: 5px;
+    width: 250px; 
+    height: 250px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
