@@ -6,46 +6,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <link href="{{ url_for('static', filename='css/base.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/history.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/remote.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/remote_detail.css') }}" rel="stylesheet">
 
     <title>{% block title %}Default Title{% endblock %}</title>
+
+    <style>
+        body {
+          background-color: white; /* 전체 페이지의 배경색을 흰색으로 설정 */
+        }
+    </style>   
+     
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class= "body-image">
-            <a href = "/">
-            <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" class="img-fluid mb-3 mt-4 ml-4">
-            </a>
+    <div class = "row-wrapper">
+        <div class = "side-bar-container">
+            <div class= "title-container">
+                <div class= "title-image-container">
+                    <a href = "/">
+                    <img src="{{ url_for('static', filename='base_icon.jpg') }}" alt="logo">
+                    </a>
+                </div>
+                <div>
+                    <a href = "/">
+                        <span class= "title-text">X-FARM</span>
+                    </a>
+                </div>
+            </div>
+            <div class = "column-wrapper">
+                <div class="sidebar">
+                    <div class = "circle-image">
+                        <img src="{{ url_for('static', filename='profile.png') }}" alt="circle">
+                    </div>
+
+
+                    <ul class="menu">
+                      <li class="menu-item">
+                        <a href="#">Test1</a>
+                        <ul class="submenu">
+                          <li><a href="#">Submenu Item 1</a></li>
+                          <li><a href="#">Submenu Item 2</a></li>
+                          <li><a href="#">Submenu Item 3</a></li>
+                        </ul>
+                      </li>
+                      <li class="menu-item">
+                        <a href="#">Test2</a>
+                        <ul class="submenu">
+                          <li><a href="#">Submenu Item 1</a></li>
+                          <li><a href="#">Submenu Item 2</a></li>
+                          <li><a href="#">Submenu Item 3</a></li>
+                        </ul>
+                      </li>                      
+                      <!-- ... (나머지 메뉴들) ... -->
+                    </ul>
+                  </div>
+                
+                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                  <script>
+                    $(document).ready(function() {
+                      $('.menu-item').hover(function() {
+                        $(this).find('.submenu').toggleClass('expanded');
+                        var submenuHeight = $(this).find('.submenu').outerHeight();
+                        $(this).css('margin-bottom', submenuHeight);
+                      }, function() {
+                        $(this).find('.submenu').toggleClass('expanded');
+                        $(this).css('margin-bottom', '10px');
+                      });
+                    });
+                  </script>                
+            </div>
+
         </div>
-        
-        {% if request.endpoint != 'register' and ((request.endpoint == 'home') or (request.endpoint != 'home'))%}
-        <!-- 네비게이션 바 -->
-        <div class="navbar-top-right">
-            <a href="{{ url_for('remote.show_remote') }}">Remote</a> <span class="mx-2">|</span>
-            <a href="{{ url_for('history.show_history') }}">History</a></span> <span class="mx-2">|</span>
-            <span class="text-muted">Search</span> <span class="mx-2">|</span>
-            <span class="text-muted">My Page</span>
-        </div>
-        {% endif %}
-        
-        <div class="content-container">
+        <div class = "content-container">
             {% block content %}{% endblock %}
         </div>
-
-        {% if session.get["user_id"] is not none %}
-            <div class="logout-link-container">
-                <a href="/logout">로그아웃</a>
-            </div>
-        {% endif %}
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>

@@ -1,20 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>Running Logs</h2>
-<div class="container">
-    <div class="belt-images">
-        <!-- 여기에 이미지 태그들을 추가하세요 -->
-        {% for data in document_data%}
-        <div class= "image-box">
-            <img src="{{ data.img_path }}" alt="Belt Image" class="rounded-image">
-            <img src="{{ data }}" alt="Belt Image" class="rounded-image">
-            <img src="{{ data }}" alt="Belt Image" class="rounded-image">
-            <img src="{{ data }}" alt="Belt Image" class="rounded-image">
+<h2>Running Logs - Detail</h2>
 
-        <!-- 필요한 만큼 이미지를 추가하세요 -->
-        {% endfor %}
+    <div class= "belt-group">
+        <div class="belt-images">
+            <!-- 여기에 이미지 태그들을 추가하세요 -->
+            {% for data in document_data%}
+            <div class= "image-box">
+                <img src="{{ data.img_path }}" alt="Belt Image" class="rounded-image">
+            </div>
+            <!-- 필요한 만큼 이미지를 추가하세요 -->
+            {% endfor %}
+        </div>
     </div>
-</div>
 
 {% endblock %}
+

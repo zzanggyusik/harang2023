@@ -33,25 +33,7 @@ def show_history():
                 thumbnail_dict[col]= list(db_manager.read(db= db, collection= col, mode= Mode.MANY)[:6])
             
             belts_thumbnail[db] = thumbnail_dict 
-                
-    
-    # all_belts_images = []  # 모든 벨트의 이미지들을 저장할 리스트
-    
-    # for belt_data in belts_data:
-    #     belt = db_manager.find_belt_by_id(belt_data['belt_id'])
-    #     user = db_manager.find_user_by_id(user_id)
-    #     images = belt.get('images', [])
-    #     images.sort(key=lambda x: parse(x['time_uploaded']), reverse=True)
-
-    #     # 각 벨트에서 최근 6장의 이미지만 가져옵니다.
-    #     recent_images = images[:6]
-
-    #     all_belts_images.append({
-    #         'username': user.get('username', 'Unknown'),
-    #         'belt_name': belt.get('name', 'Unknown'),
-    #         'recent_images': recent_images
-    #     })
-    
+                    
     print(f"belts thumbnail = {belts_thumbnail}")
     
     return render_template('history.html', belts_thumbnail= belts_thumbnail)
@@ -61,10 +43,9 @@ def history_detail():
     db= request.args.get("db")
     col= request.args.get("col")
     
-    print(f"db = {db}")
-    print(f"col= {col}")
-    
     document_data = list(db_manager.read(db= db, collection= col, mode= Mode.MANY)) 
+    
+    print("document data", document_data)
     
     return render_template('history_detail.html', document_data= document_data)
 
