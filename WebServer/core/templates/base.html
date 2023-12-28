@@ -55,7 +55,10 @@
 
                     <ul class="menu">
                       <li class="menu-item">
-                        <a href="#">Test1</a>
+                        <a href="/">
+                            <img src="{{ url_for('static', filename='css/icons/home.png') }}" alt="home" width=25px height=28px>
+                            &nbsp;&nbsp;HOME
+                        </a>
                         <ul class="submenu">
                           <li><a href="#">Submenu Item 1</a></li>
                           <li><a href="#">Submenu Item 2</a></li>
@@ -63,16 +66,56 @@
                         </ul>
                       </li>
                       <li class="menu-item">
-                        <a href="#">Test2</a>
+                        <a href="/history">
+                            <img src="{{ url_for('static', filename='css/icons/history.png') }}" alt="history" width=25px height=28px>
+                            &nbsp;&nbsp;History
+                        </a>
                         <ul class="submenu">
                           <li><a href="#">Submenu Item 1</a></li>
                           <li><a href="#">Submenu Item 2</a></li>
                           <li><a href="#">Submenu Item 3</a></li>
                         </ul>
                       </li>                      
-                      <!-- ... (나머지 메뉴들) ... -->
+                      <li class="menu-item">
+                        <a href="/remote">
+                            <img src="{{ url_for('static', filename='css/icons/remote.png') }}" alt="remote" width=25px height=28px>
+                            &nbsp;&nbsp;Remote
+                        </a>
+                        <ul class="submenu">
+                          <li><a href="#">Submenu Item 1</a></li>
+                          <li><a href="#">Submenu Item 2</a></li>
+                          <li><a href="#">Submenu Item 3</a></li>
+                        </ul>
+                      </li>
+                      <li class="menu-item">
+                        <a href="/forsale">
+                            <img src="{{ url_for('static', filename='css/icons/for_sale.png') }}" alt="for sale" width=25px height=28px>
+                            &nbsp;&nbsp;For Sale
+                        </a>
+                        <ul class="submenu">
+                          <li><a href="#">Submenu Item 1</a></li>
+                          <li><a href="#">Submenu Item 2</a></li>
+                          <li><a href="#">Submenu Item 3</a></li>
+                        </ul>
+                      </li>                      
+                      <li class="menu-item">
+                        <a href="/">
+                            <img src="{{ url_for('static', filename='css/icons/ai_recommend.png') }}" alt="ai recommend" width=25px height=28px>
+                            &nbsp;&nbsp;Ai Recommend
+                        </a>
+                        <ul class="submenu">
+                          <li><a href="#">Submenu Item 1</a></li>
+                          <li><a href="#">Submenu Item 2</a></li>
+                          <li><a href="#">Submenu Item 3</a></li>
+                        </ul>
+                      </li>                      
                     </ul>
-                  </div>
+
+                    <div>
+                        
+                    </div>
+
+                </div>
                 
                   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                   <script>
@@ -83,10 +126,11 @@
                         $(this).css('margin-bottom', submenuHeight);
                       }, function() {
                         $(this).find('.submenu').toggleClass('expanded');
-                        $(this).css('margin-bottom', '10px');
+                        $(this).css('margin-bottom', '70px');
                       });
                     });
-                  </script>                
+                  </script>     
+                       
             </div>
 
         </div>
