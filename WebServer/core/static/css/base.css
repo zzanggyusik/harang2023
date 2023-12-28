@@ -92,7 +92,25 @@
     /* transform: translateY(-50%); */
 }
 
+.logout-container {
+    /* padding: 20px; */
+    margin-top: 60px;
+    width: 272px;
+    height: 82px;
+    border-radius: 30px; /* 텍스트 컨테이너의 둥근 사각형을 위한 테두리 반지름 설정 */
+    /* background-color: #1BB25F; /* 텍스트 컨테이너의 배경색 지정 */     */
+    border-radius: 100px;
+    border: 2px solid #1BB25F;
+}
 
+.logout-text {
+    color: #1BB25F;
+    font-family: "Pretendard-Regular";
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 201.523%; /* 72.548px */
+}
 
 body, ul, li {
     margin: 0;
