@@ -16,6 +16,7 @@
     <link href="{{ url_for('static', filename='css/history.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/remote.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/remote_detail.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/sidebars.css') }}" rel="stylesheet">
 
     <title>{% block title %}Default Title{% endblock %}</title>
 
@@ -28,118 +29,73 @@
 </head>
 
 <body>
-    <div class = "row-wrapper">
-        <div class = "side-bar-container">
-            <div class= "title-container">
-                <div class= "title-image-container">
-                    <a href = "/">
-                    <img src="{{ url_for('static', filename='base_icon.jpg') }}" alt="logo">
-                    </a>
-                </div>
-                <div>
-                    <a href = "/">
-                        <span class= "title-text">X-FARM</span>
-                    </a>
-                </div>
-            </div>
-            <div class = "column-wrapper">
-                <div class="sidebar">
-                    <div class = "circle-image">
-                        <img src="{{ url_for('static', filename='profile.png') }}" alt="circle">
-                    </div>
-                    <div class = "profile-container">
-                        <div class = "profile-text">
-                            짱규식님의 농장
-                        </div>
-                    </div>                    
-
-                    <ul class="menu">
-                      <li class="menu-item">
-                        <a href="/">
-                            <img src="{{ url_for('static', filename='css/icons/home.png') }}" alt="home" width=25px height=28px>
-                            &nbsp;&nbsp;HOME
-                        </a>
-                        <ul class="submenu">
-                          <li><a href="#">Submenu Item 1</a></li>
-                          <li><a href="#">Submenu Item 2</a></li>
-                          <li><a href="#">Submenu Item 3</a></li>
-                        </ul>
-                      </li>
-                      <li class="menu-item">
-                        <a href="/history">
-                            <img src="{{ url_for('static', filename='css/icons/history.png') }}" alt="history" width=25px height=28px>
-                            &nbsp;&nbsp;History
-                        </a>
-                        <ul class="submenu">
-                          <li><a href="#">Submenu Item 1</a></li>
-                          <li><a href="#">Submenu Item 2</a></li>
-                          <li><a href="#">Submenu Item 3</a></li>
-                        </ul>
-                      </li>                      
-                      <li class="menu-item">
-                        <a href="/remote">
-                            <img src="{{ url_for('static', filename='css/icons/remote.png') }}" alt="remote" width=25px height=28px>
-                            &nbsp;&nbsp;Remote
-                        </a>
-                        <ul class="submenu">
-                          <li><a href="#">Submenu Item 1</a></li>
-                          <li><a href="#">Submenu Item 2</a></li>
-                          <li><a href="#">Submenu Item 3</a></li>
-                        </ul>
-                      </li>
-                      <li class="menu-item">
-                        <a href="/forsale">
-                            <img src="{{ url_for('static', filename='css/icons/for_sale.png') }}" alt="for sale" width=25px height=28px>
-                            &nbsp;&nbsp;For Sale
-                        </a>
-                        <ul class="submenu">
-                          <li><a href="#">Submenu Item 1</a></li>
-                          <li><a href="#">Submenu Item 2</a></li>
-                          <li><a href="#">Submenu Item 3</a></li>
-                        </ul>
-                      </li>                      
-                      <li class="menu-item">
-                        <a href="/">
-                            <img src="{{ url_for('static', filename='css/icons/ai_recommend.png') }}" alt="ai recommend" width=25px height=28px>
-                            &nbsp;&nbsp;Ai Recommend
-                        </a>
-                        <ul class="submenu">
-                          <li><a href="#">Submenu Item 1</a></li>
-                          <li><a href="#">Submenu Item 2</a></li>
-                          <li><a href="#">Submenu Item 3</a></li>
-                        </ul>
-                      </li>                      
-                    </ul>
-                    
-                    <a href="/logout">
-                        <div class = "logout-container">
-                            <div class = "logout-text">
-                                로그아웃
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                  <script>
-                    $(document).ready(function() {
-                      $('.menu-item').hover(function() {
-                        $(this).find('.submenu').toggleClass('expanded');
-                        var submenuHeight = $(this).find('.submenu').outerHeight();
-                        $(this).css('margin-bottom', submenuHeight);
-                      }, function() {
-                        $(this).find('.submenu').toggleClass('expanded');
-                        $(this).css('margin-bottom', '70px');
-                      });
-                    });
-                  </script>     
-                       
-            </div>
-
-        </div>
-        <div class = "content-container">
+  <div class = "row-wrapper">
+    <div class = "side-bar-container">
+    <div class="flex-shrink-0 p-3" style="width: 280px;">
+      <a href="/" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+        <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+        <span class="fs-5 fw-semibold">Collapsible</span>
+      </a>
+      <ul class="list-unstyled ps-0">
+        <li class="mb-1">
+          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+            Home
+          </button>
+          <div class="collapse show" id="home-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Overview</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Updates</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Reports</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="mb-1">
+          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+            Dashboard
+          </button>
+          <div class="collapse" id="dashboard-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Overview</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Weekly</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Monthly</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Annually</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="mb-1">
+          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+            Orders
+          </button>
+          <div class="collapse" id="orders-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">New</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Processed</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Shipped</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Returned</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="border-top my-3"></li>
+        <li class="mb-1">
+          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+            Account
+          </button>
+          <div class="collapse" id="account-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">New...</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Profile</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Settings</a></li>
+              <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Sign out</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+    <div class = "content-container"> 
             {% block content %}{% endblock %}
         </div>
     </div>
+    <script src="https://getbootstrap.com/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='javascript/sidebars.js') }}"></script>
 </body>
-</html>
