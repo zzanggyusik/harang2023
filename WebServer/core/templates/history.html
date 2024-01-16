@@ -3,54 +3,97 @@
 {% block content %}
 <div class="SHistory" style="width:100%; height: 100%; position: relative; background: white">
     <div class="Rectangle9" style="width: 100%; height: 100%; position: absolute; background: #F6F9F8; border-radius: 100px"></div>
-    <div class="History" style="width: 283px; height: 92px; left: 3%; top: 4%; position: absolute; color: #90ACA5; font-size: 64px; font-family: Pretendard Variable; font-weight: 800; word-wrap: break-word">History</div>
-    <div style="left: 3%; top: 9%; position: absolute; color: #B8B8B8; font-size: 36px; font-family: Pretendard Variable; font-weight: 500; word-wrap: break-word">지금까지 정보가 저장되어있어요.</div>
-    
-    <div class="Group133" style="width: 752px; height: 71px; left: 3%; top: 15%; position: absolute">
-        <div class="Rectangle97" style="width: 749px; height: 71px; left: 3px; top: 0px; position: absolute; background: white; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 100px"></div>
-        <div class="Rectangle98" style="width: 182px; height: 71px; left: 0px; top: 0px; position: absolute; background: #54AF67; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset; border-top-left-radius: 100px; border-top-right-radius: 100px"></div>
-        <div class="A" style="width: 21.27px; left: 74px; top: 3px; position: absolute; color: white; font-size: 32px; font-family: Pretendard Variable; font-weight: 900; line-height: 64.49px; word-wrap: break-word">A</div>
-        <div class="C" style="width: 19.57px; left: 452px; top: 5px; position: absolute; color: #BCBCBC; font-size: 32px; font-family: Pretendard Variable; font-weight: 400; line-height: 64.49px; word-wrap: break-word">C</div>
-        <div class="D" style="left: 644px; top: 5px; position: absolute; color: #BCBCBC; font-size: 32px; font-family: Pretendard Variable; font-weight: 400; line-height: 64.49px; word-wrap: break-word">D</div>
-        <div class="B" style="width: 17.02px; left: 259px; top: 5px; position: absolute; color: #BCBCBC; font-size: 32px; font-family: Pretendard Variable; font-weight: 400; line-height: 64.49px; word-wrap: break-word">B</div>
-        <div class="Line27" style="width: 61px; height: 0px; left: 367px; top: 5px; position: absolute; transform: rotate(90deg); transform-origin: 0 0; border: 1px #E6E6E6 solid"></div>
-        <div class="Line28" style="width: 61px; height: 0px; left: 567px; top: 5px; position: absolute; transform: rotate(90deg); transform-origin: 0 0; border: 1px #E6E6E6 solid"></div>
-      </div>
-
-    <div class="ImgTable" style="width: 95%; height: 90%;background: #F6F9F8; left: 3%; top: 25%; position: absolute">
-        {% for database, collection in belts_thumbnail.items() %}
-                {% for col, doc in collection.items() %}
-                    <div class="belt-group">                       
-                        <div class= "belt-images">
-                            {% for data in doc %}
-                            <div class="image-box" style="position: relative;">
-                                <img src="{{ data.img_path }}" alt="Belt Image">
-                                {% if data.reason is defined and data.reason %}
-                                    <div class="Ellipse31" style="width: 26.31px; height: 26.31px; position: absolute; top: 0; right: 0; background: #FE0000; box-shadow: 0px 4px 4px rgba(4.25, 4.25, 4.25, 0.25) inset; border-radius: 9999px"></div>
-                                {% else %}
-                                <div class="Ellipse31" style="width: 26.31px; height: 26.31px; position: absolute; top: 0; right: 0; background: #008000; box-shadow: 0px 4px 4px rgba(4.25, 4.25, 4.25, 0.25) inset; border-radius: 9999px"></div>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endfor %}
+    <div class="Header" style="width: 100%; height: 13%; top: 4%; left: 3%; position: absolute">
+        <div class="History" style="width: 100%; height: 40%; position: absolute; color: #90ACA5; font-size: 64px; font-family: Pretendard Variable; font-weight: 800; word-wrap: break-word">History</div>
+        <div style="width: 100%; height: 40%; top: 50%; position: absolute; color: #B8B8B8; font-size: 36px; font-family: Pretendard Variable; font-weight: 500; word-wrap: break-word">지금까지 정보가 저장되어있어요.</div>
     </div>
+
+    <div class="Group133" style="width: 50%; height: 5%; left: 3%; top: 18%; position: absolute">
+        {% set ns = namespace(count=0) %}
+        {% for database, collection in belts_thumbnail.items() %}
+            {% for col, doc in collection.items() %}
+                {% set ns.count = ns.count + 1 %}
+                <button class="{% if ns.count == 1 %}first-button{% elif ns.count == 4 %}last-button{% else %}database-button{%endif%}" id="{{database}}-{{col}}" onclick="showImages('{{database}}-{{col}}')">{{ns.count}}</button>
+                
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <div class="ImgTable" style="width: 95%; height: 70%;background: #F6F9F8; left: 3%; top: 25%; position: absolute; overflow-y: auto;">
+        {% for database, collection in belts_thumbnail.items() %}
+            {% for col, doc in collection.items() %}
+                <div class="belt-group" id="group-{{database}}-{{col}}" style="display: none; flex-wrap: wrap; overflow-y: auto;"> {# 초기에는 display: none으로 설정 #}
+                    {% for data in doc %}
+                        <div class="image-box" style="position: relative">
+                            <img src="{{ data.img_path }}" alt="Belt Image">
+                            {% if data.reason is defined and data.reason %}
+                                <div class="Ellipse31" style="width: 26.31px; height: 26.31px; position: absolute; top: 2%; right: 2%; background: #FE0000; box-shadow: 0px 4px 4px rgba(4.25, 4.25, 4.25, 0.25) inset; border-radius: 9999px"></div>
+                            {% else %}
+                                <div class="Ellipse31" style="width: 26.31px; height: 26.31px; position: absolute; top: 2%; right: 2%; background: #00d560; box-shadow: 0px 4px 4px rgba(4.25, 4.25, 4.25, 0.25) inset; border-radius: 9999px"></div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <script>
+        function showImages(groupID) {
+            // 특수 문자를 이스케이프 처리
+            var escapedGroupID = groupID.replace(/[.:]/g, function(match) {
+                return "\\" + match;
+            });
+
+            // 모든 belt-group의 display 속성을 변경
+            var allBeltGroups = document.querySelectorAll('.belt-group');
+            allBeltGroups.forEach(group => {
+                group.style.display = 'none';
+            });
+
+            // 선택된 groupID에 해당하는 belt-group만 표시
+            var selectedBeltGroups = document.querySelectorAll('#group-' + escapedGroupID);
+            selectedBeltGroups.forEach(group => {
+                group.style.display = 'flex'; // 또는 원하는 display 속성으로 변경
+            });
+
+            var buttons = document.getElementsByClassName('database-button');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+
+            var buttons = document.getElementsByClassName('first-button');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            var buttons = document.getElementsByClassName('last-button');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+
+            var activeButton = document.getElementById(groupID);
+            activeButton.classList.add('active');
+            console.log("Active class added to: ", activeButton);
+        }
+
+        // 페이지 로드 시 첫 번째 버튼을 자동으로 클릭하도록 설정
+        window.onload = function() {
+            var firstButton = document.querySelector('.database-button');
+            if (firstButton) {
+            firstButton.click();
+            }
+            };
+    </script>
 
     <div class="rightIcons" style="width: 160px; height: 80px; left: 91%; top: 5%; position: absolute">
         <div class="SfSymbol" style="width: 73px; height: 80px; left: 50%; position: absolute">
             <div class="SfSymbol" style="width: 57.17px; height: 63.81px; left: 7.90px; top: 7.79px; position: absolute; background: #54AF67"></div>
             <div class="Ellipse16" style="width: 21.66px; height: 21.60px; left: 40.91px; top: 7.20px; position: absolute; background: #FF0000; border-radius: 9999px"></div>
-          
         </div>
         <div class="Group715" style="width: 62.23px; height: 62.23px; position: absolute">
             <div class="Line50" style="width: 23px; height: 0px; left: 41.72px; top: 41.72px; position: absolute; transform: rotate(45deg); transform-origin: 0 0; border: 10px #54AF67 solid"></div>
             <div class="Ellipse302" style="width: 44px; height: 44px; left: 0px; top: 31.11px; position: absolute; transform: rotate(-45deg); transform-origin: 0 0; border-radius: 9999px; border: 10px #54AF67 solid"></div>
         </div>
-          
     </div>
-
-
-
+</div>
 {% endblock %}
