@@ -11,7 +11,7 @@
     <div class="hg-content-container">
 
         <div class="hg-title-container">
-            <h1>Hello, 강준님!</h1>
+            <h1>Hello, {{ username }}님!</h1>
             <div class="hg-title-image">
                 <img src="{{ url_for('static', filename='css/icons/chart.svg') }}" alt="chart">
                 <img src="{{ url_for('static', filename='css/icons/bell.svg') }}" alt="bell">
@@ -86,7 +86,7 @@
                 </div>
 
                 <div class="hg-panel-graph">                   
-                    <canvas id="myChart"></canvas>
+                    <canvas id="PanelChart"></canvas>
                     <script>
                         const labels = {{ week_data.label|safe}};
                         const data = {
@@ -113,8 +113,9 @@
                         
                         </script>
                         <script>
-                          const myChart = new Chart(
-                            document.getElementById('myChart'),
+                          var ctx1 = document.getElementById('PanelChart').getContext('2d');
+                          const PanelChart = new Chart(
+                            ctx1,
                             config
                           );
                         </script>
@@ -125,8 +126,55 @@
 
     </div>
     <div class="hg-dashboard-container">
+        <div class="hg-dashborad-content-container">
+
+            <h1>NOW</h1>
+
+            <hr class="dashboard-line">
+            
+            <div class="hg-dashboard-belt">
+
+                <div class="hg-dashboard-img-holder">
+                    <img src="{{ url_for('static', filename='css/icons/temperature.svg') }}" alt="temperature">
+                </div>
+                
+                <div class="hg-dashboard-text-container">
+                    <span class="dashboard-title">+ 24 °C</span>
+                    <span class="dashboard-text">Temperature</span>
+                </div>
+            </div>
+            <div class="hg-dashboard-chart-container">
+                <canvas id="temperatureChart"></canvas>
+                <script>
+                    const labels = [9, 12, 18, 21];
+                    const data = {
+                      labels: labels,
+                      datasets: {
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        data: [1,2,3,4],
+                      }
+                    };
+                    
+                    const config = {
+                      type: 'line',
+                      data,
+                      options: {}
+                    };
+                    
+                    </script>
+                    <script>
+                      var ctx2 = document.getElementById('temperatureChart').getContext('2d');
+                      const myChart = new Chart(
+                        document.getElementById('temperatureChart'),
+                        config
+                      );
+                    </script>
+            </div>
+
+        </div>
     </div>
 </div>
 
 
 {% endblock %}
+
