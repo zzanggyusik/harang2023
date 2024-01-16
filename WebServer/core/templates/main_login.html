@@ -1,74 +1,86 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}덕명마을방범대{% endblock %}
 
 {% block content %}
-<style>
-    .container {
-        text-align: center; /* 가운데 정렬 설정 */
-    }
+<link href="{{ url_for('static', filename='css/main_login.css') }}" rel="stylesheet">    
 
-    .belt-container {
-        margin: 0 400px; /* 좌우 200px 마진 설정 */
-        display: inline-block; /* 인라인 블록으로 변경하여 좌우 정렬 설정 */
-    }
+<div class="hg-main-container">
 
-    .spacing {
-        margin-bottom: 100px; /* 상하 간격 설정 */
-    }
-</style>
+    <div class="hg-content-container">
 
-<link href="{{ url_for('static', filename='css/main_login.css') }}" rel="stylesheet">
-
-<h3>접속 시간 : {{ login_time }}</h3>
-<h3>반갑습니다, {{ username }}님!</h3>
-
-<!-- 간격을 주기 위한 빈 요소 추가 -->
-<div class="spacing"></div>
-
-<h3>My Panel</h3>
-    <div class="my-panel">
-        <div class="panel-item">
-            <a href="/remote" class="panel-link">
-                <div class="panel-icon">🔗</div>
-                <div class="panel-label">Remote</div>
-                <div class="panel-label">{{ current_running_belts_number }} / {{ all_belts_number }}</div>
-            </a>
+        <div class="hg-title-container">
+            <h1>Hello, 강준님!</h1>
+            <div class="hg-title-image">
+                <img src="{{ url_for('static', filename='css/icons/chart.svg') }}" alt="chart">
+                <img src="{{ url_for('static', filename='css/icons/bell.svg') }}" alt="bell">
+            </div>
         </div>
-        <div class="panel-item">
-            <a href="/history" class="panel-link">
-                <div class="panel-icon">🕒</div>
-                <div class="panel-label">History</div>
-            </a>
+
+        <div class="hg-title-subtext-container">
+            <span class="hg-title-subtext">강준님 안녕하세요 , 오늘 2023 년 11월 15일 수요일입니다.</span>
         </div>
-        <div class="panel-item">
-            <a href="/search" class="panel-link">
-                <div class="panel-icon">🔍</div>
-                <div class="panel-label">Search</div>
-            </a>
+
+        <div class="hg-search-container">
+            <form action="처리 할 페이지주소" method="post">
+                <input type="text" name="search" placeholder="무엇이 궁금하신가요 ?">
+                <input type="submit" value="SEARCH">
+            </form>
+        </div> 
+
+        <div class="hg-date-container">
+            <div class="hg-month">
+                11
+            </div>
+            <div class="hg-week">
+                <span class="hg-day-string">Mon</span>
+                <span class="hg-day-num">13</span>
+            </div>
+            <div class="hg-week">
+                <span class="hg-day-string">The</span>
+                <span class="hg-day-num">14</span>
+            </div>
+            <div class="hg-week">
+                <span class="hg-day-string">Wed</span>
+                <span class="hg-day-num">15</span>
+            </div>
+            <div class="hg-week">
+                <span class="hg-day-string">Thu</span>
+                <span class="hg-day-num">16</span>
+            </div>
+            <div class="hg-week">
+                <span class="hg-day-string">Fri</span>
+                <span class="hg-day-num">17</span>
+            </div>
+            <div class="hg-week">
+                <span class="hg-day-string">Sat</span>
+                <span class="hg-day-num">18</span>
+            </div>
+            <div class="hg-week">
+                <span class="hg-day-string">Sun</span>
+                <span class="hg-day-num">19</span>
+            </div>                                                                        
         </div>
+
+        <div class="hg-board-selector-container">
+            <div class="hg-board-selector-panel">
+                <span>My Panel</spon>
+            </div>
+            <div class="hg-board-selector-history">
+                <span>My History</spon>
+            </div>
+
+        </div>
+        
+        <div class="hg-panel-container">
+            
+        </div>
+
+
     </div>
-
-<h3>AI Recommend</h3>
-    <div class="ai-recommend">
-        <div class="recommend-item">
-            <a href="/best-crops" class="recommend-link">
-                <div class="recommend-icon">🌾</div>
-                <div class="recommend-label">Best crops for each season</div>
-            </a>
-        </div>
-        <div class="recommend-item">
-            <a href="/farmer-month" class="recommend-link">
-                <div class="recommend-icon">🏆</div>
-                <div class="recommend-label">Farmer of the month</div>
-            </a>
-        </div>
-        <div class="recommend-item">
-            <a href="/farming-tips" class="recommend-link">
-                <div class="recommend-icon">💡</div>
-                <div class="recommend-label">Farming Tips</div>
-            </a>
-        </div>
+    <div class="hg-dashboard-container">
     </div>
-    
+</div>
+
+
 {% endblock %}

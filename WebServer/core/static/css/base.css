@@ -1,6 +1,6 @@
 /* static/styles.css */
 html {
-  font-size: 16px;
+  font-size: 1.1vh;
   height: 100vh;
   height: -webkit-fill-available;
   font-family: "Pretendard-Regular";
@@ -73,6 +73,7 @@ body {
   color:white;
   margin-bottom: 2rem;
   overflow: hidden;
+  font-size: 0.7vw;
 }
 
 .hg-sidebar-menu{
@@ -87,7 +88,7 @@ body {
 
 .hg-sidebar-menu a{
   display: flex;
-  margin-left: 1rem;
+  /* margin-left: 2rem; */
   font-family: "Pretendard-Regular";
   text-decoration: none;
   color: #BCBCBC;
@@ -114,6 +115,10 @@ body {
   align-items: center;
 }
 
+.hg-sidebar-second-button{
+  margin-top: -1rem;
+}
+
 
 .dropdown-toggle { outline: 0; }
 
@@ -122,6 +127,9 @@ body {
   font-weight: 600;
   color: var(--bs-emphasis-color);
   background-color: transparent;
+  margin-bottom: 1.5rem;
+  border-radius: 5.55rem;
+
 }
 .btn-toggle:hover,
 .btn-toggle:focus {
@@ -155,7 +163,7 @@ body {
 .btn-toggle-nav a {
   padding: .1875rem .5rem;
   margin-top: .125rem;
-  margin-left: 1.25rem;
+  margin-left: 3.25rem;
 }
 .btn-toggle-nav a:hover,
 .btn-toggle-nav a:focus {
