@@ -19,17 +19,17 @@
         {% endfor %}
     </div>
 
-    <div class="ImgTable" style="width: 95%; height: 70%;background: #F6F9F8; left: 3%; top: 25%; position: absolute; overflow-y: auto;">
+    <div class="ImgTable">
         {% for database, collection in belts_thumbnail.items() %}
             {% for col, doc in collection.items() %}
-                <div class="belt-group" id="group-{{database}}-{{col}}" style="display: none; flex-wrap: wrap; overflow-y: auto;"> {# 초기에는 display: none으로 설정 #}
+                <div class="belt-group" id="group-{{database}}-{{col}}"> {# 초기에는 display: none으로 설정 #}
                     {% for data in doc %}
                         <div class="image-box" style="position: relative">
                             <img src="{{ data.img_path }}" alt="Belt Image">
                             {% if data.reason is defined and data.reason %}
-                                <div class="Ellipse31" style="width: 26.31px; height: 26.31px; position: absolute; top: 2%; right: 2%; background: #FE0000; box-shadow: 0px 4px 4px rgba(4.25, 4.25, 4.25, 0.25) inset; border-radius: 9999px"></div>
+                                <div class="errorStatus"></div>
                             {% else %}
-                                <div class="Ellipse31" style="width: 26.31px; height: 26.31px; position: absolute; top: 2%; right: 2%; background: #00d560; box-shadow: 0px 4px 4px rgba(4.25, 4.25, 4.25, 0.25) inset; border-radius: 9999px"></div>
+                                <div class="normalStatus"></div>
                             {% endif %}
                         </div>
                     {% endfor %}
@@ -85,14 +85,12 @@
             };
     </script>
 
-    <div class="rightIcons" style="width: 160px; height: 80px; left: 91%; top: 5%; position: absolute">
+    <div class="rightIcons" style="width: 160px; height: 80px; left: 91%; top: 5%; position: relative">
         <div class="SfSymbol" style="width: 73px; height: 80px; left: 50%; position: absolute">
-            <div class="SfSymbol" style="width: 57.17px; height: 63.81px; left: 7.90px; top: 7.79px; position: absolute; background: #54AF67"></div>
-            <div class="Ellipse16" style="width: 21.66px; height: 21.60px; left: 40.91px; top: 7.20px; position: absolute; background: #FF0000; border-radius: 9999px"></div>
+            <img src="{{ url_for('static', filename='css/icons/bell.svg') }}" alt="bell">
         </div>
         <div class="Group715" style="width: 62.23px; height: 62.23px; position: absolute">
-            <div class="Line50" style="width: 23px; height: 0px; left: 41.72px; top: 41.72px; position: absolute; transform: rotate(45deg); transform-origin: 0 0; border: 10px #54AF67 solid"></div>
-            <div class="Ellipse302" style="width: 44px; height: 44px; left: 0px; top: 31.11px; position: absolute; transform: rotate(-45deg); transform-origin: 0 0; border-radius: 9999px; border: 10px #54AF67 solid"></div>
+            <img src="{{ url_for('static', filename='css/icons/search.svg') }}" alt="search">
         </div>
     </div>
 </div>
