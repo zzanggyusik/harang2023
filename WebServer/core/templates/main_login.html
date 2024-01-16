@@ -88,8 +88,8 @@
                 <div class="hg-panel-graph">                   
                     <canvas id="PanelChart"></canvas>
                     <script>
-                        const labels = {{ week_data.label|safe}};
-                        const data = {
+                        var labels = {{ week_data.label|safe}};
+                        var data = {
                           labels: labels,
                           datasets: [{
                             label: '지난주',
@@ -105,7 +105,7 @@
                           }]
                         };
                         
-                        const config = {
+                        var config = {
                           type: 'line',
                           data,
                           options: {}
@@ -114,7 +114,7 @@
                         </script>
                         <script>
                           var ctx1 = document.getElementById('PanelChart').getContext('2d');
-                          const PanelChart = new Chart(
+                          var PanelChart = new Chart(
                             ctx1,
                             config
                           );
@@ -146,30 +146,138 @@
             <div class="hg-dashboard-chart-container">
                 <canvas id="temperatureChart"></canvas>
                 <script>
-                    const labels = [9, 12, 18, 21];
-                    const data = {
+                    var labels = [9, 12, 18, 21];
+                    var data = {
                       labels: labels,
-                      datasets: {
-                        backgroundColor: 'rgb(255, 99, 132)',
-                        data: [1,2,3,4],
-                      }
+                      datasets: [{
+                        label: 'Temperature',
+                        backgroundColor: 'rgb(126, 168, 144)',
+                        borderColor: 'rgb(126, 168, 144)',
+                        data: [1,2.5,3.5,1],
+                      }]
                     };
+                    console.log(data);
                     
-                    const config = {
+                    var config = {
                       type: 'line',
                       data,
                       options: {}
                     };
                     
-                    </script>
+                </script>
                     <script>
                       var ctx2 = document.getElementById('temperatureChart').getContext('2d');
-                      const myChart = new Chart(
+                      var myChart = new Chart(
                         document.getElementById('temperatureChart'),
                         config
                       );
                     </script>
             </div>
+            <div class="hg-dashboard-belt">
+
+                <div class="hg-dashboard-img-holder">
+                    <img src="{{ url_for('static', filename='css/icons/temperature.svg') }}" alt="temperature">
+                </div>
+                
+                <div class="hg-dashboard-text-container">
+                    <span class="dashboard-title">+ 72 %</span>
+                    <span class="dashboard-text">Moisture</span>
+                </div>
+            </div>
+            <div class="hg-dashboard-chart-container">
+                <canvas id="moistureChart"></canvas>
+                <script>
+                    var labels = [0.1, 0.3, 1, 5];
+                    var data = {
+                      labels: labels,
+                      datasets: [{
+                        label: '어제',
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: [1, 1.3, 2, 5],
+                      },
+                      {
+                        label: '오늘',
+                        backgroundColor: 'rgb(126, 168, 144)',
+                        borderColor: 'rgb(126, 168, 144)',
+                        data: [1, 2, 4, 5],
+                      },                      
+                      ]
+                    };
+                    console.log(data);
+                    
+                    var config = {
+                      type: 'line',
+                      data,
+                      options: {}
+                    };
+                    
+                </script>
+                    <script>
+                      var ctx2 = document.getElementById('moistureChart').getContext('2d');
+                      var myChart = new Chart(
+                        document.getElementById('moistureChart'),
+                        config
+                      );
+                    </script>
+            </div>            
+            <div class="hg-dashboard-belt">
+
+                <div class="hg-dashboard-img-holder">
+                    <img src="{{ url_for('static', filename='css/icons/temperature.svg') }}" alt="temperature">
+                </div>
+                
+                <div class="hg-dashboard-text-container">
+                    <span class="dashboard-title">- 22 mm</span>
+                    <span class="dashboard-text">Precipitation</span>
+                </div>
+            </div>
+            <div class="hg-dashboard-chart-container">
+                <canvas id="precipitationChart"></canvas>
+                <script>
+                    var labels = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+                    var data = {
+                      labels: labels,
+                      datasets: [{
+                        label: '최대 강수량',
+                        backgroundColor: [
+                        'rgb(126, 168, 144)',
+                        'rgb(126, 168, 144)',
+                        'rgb(126, 168, 144)',
+                        'rgb(126, 168, 144)',
+                        'rgb(126, 168, 144)',
+                        'rgb(255, 99, 132)',
+                        'rgb(126, 168, 144)',
+                        'rgb(126, 168, 144)',
+                        'rgb(126, 168, 144)',
+                        'rgb(126, 168, 144)',
+                        'rgb(126, 168, 144)',
+                        'rgb(126, 168, 144)',
+                        'rgb(126, 168, 144)',
+                        'rgb(126, 168, 144)',
+                        ],
+                        borderColor: 'rgb(255, 0, 0)',
+                        data: [40, 45, 60, 50, 60, 90, 80, 20, 30, 40, 70, 80, 80],
+                      }]
+                    };
+                    console.log(data);
+                    
+                    var config = {
+                      type: 'bar',
+                      data,
+                      options: {}
+                    };
+                    
+                </script>
+                    <script>
+                      var ctx2 = document.getElementById('precipitationChart').getContext('2d');
+                      var myChart = new Chart(
+                        document.getElementById('precipitationChart'),
+                        config
+                      );
+                    </script>
+            </div> 
+            
 
         </div>
     </div>
