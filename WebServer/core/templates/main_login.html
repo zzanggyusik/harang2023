@@ -18,7 +18,7 @@
         </div>
 
         <div class="hg-title-subtext-container">
-            <span class="hg-title-subtext">강준님 안녕하세요 , 오늘 2023 년 11월 15일 수요일입니다.</span>
+            <span class="hg-title-subtext">{{ username }}님 안녕하세요 , 오늘은 {{week_data.year}}년 {{week_data.month}}월 {{week_data.day}}일 {{week_data.weekday}}입니다.</span>
         </div>
 
         <div class="hg-search-container">
@@ -30,36 +30,22 @@
 
         <div class="hg-date-container">
             <div class="hg-month">
-                11
+                {{week_data.month}}
             </div>
-            <div class="hg-week">
-                <span class="hg-day-string">Mon</span>
-                <span class="hg-day-num">13</span>
-            </div>
-            <div class="hg-week">
-                <span class="hg-day-string">The</span>
-                <span class="hg-day-num">14</span>
-            </div>
-            <div class="hg-week">
-                <span class="hg-day-string">Wed</span>
-                <span class="hg-day-num">15</span>
-            </div>
-            <div class="hg-week">
-                <span class="hg-day-string">Thu</span>
-                <span class="hg-day-num">16</span>
-            </div>
-            <div class="hg-week">
-                <span class="hg-day-string">Fri</span>
-                <span class="hg-day-num">17</span>
-            </div>
-            <div class="hg-week">
-                <span class="hg-day-string">Sat</span>
-                <span class="hg-day-num">18</span>
-            </div>
-            <div class="hg-week">
-                <span class="hg-day-string">Sun</span>
-                <span class="hg-day-num">19</span>
-            </div>                                                                        
+
+            {% for key, value in week_data.week.items()%}
+                {% if value == week_data.day%}
+                    <div class="hg-today-week">
+                        <span class="hg-today-day-string">{{key}}</span>
+                        <span class="hg-today-day-num">{{value}}</span>
+                    </div>                    
+                {% else %}
+                    <div class="hg-week">
+                        <span class="hg-day-string">{{key}}</span>
+                        <span class="hg-day-num">{{value}}</span>
+                    </div>
+                {% endif %}
+            {% endfor %}                                                 
         </div>
 
         <div class="hg-board-selector-container">
@@ -73,7 +59,33 @@
         </div>
         
         <div class="hg-panel-container">
-            
+            <div class="hg-panel">
+                <div class="hg-panel-percent">
+                    <div class="hg-panel-percent-belt">
+                        <img src="{{ url_for('static', filename='css/icons/output.svg') }}" class="hg-panel-percent-belt-logo" alt="output">
+                        <span class="hg-panel-percent-text">생산량</span>
+                        <span class="hg-panel-percent-num">52 %</span>
+                        <img src="{{ url_for('static', filename='css/icons/red_polygon.svg') }}" class="hg-panel-percent-belt-polygon" alt="red polygon">
+                    </div>
+                    <hr class="panel-line">
+                    <div class="hg-panel-percent-belt">
+                        <img src="{{ url_for('static', filename='css/icons/employment-cost.svg') }}" class="hg-panel-percent-belt-logo" alt="employment-cost">
+                        <span class="hg-panel-percent-text">고용노동비</span>
+                        <span class="hg-panel-percent-num">30 %</span>
+                        <img src="{{ url_for('static', filename='css/icons/red_polygon.svg') }}" class="hg-panel-percent-belt-polygon" alt="red polygon">                        
+                    </div>
+                    <hr class="panel-line">
+                    <div class="hg-panel-percent-belt">
+                        <img src="{{ url_for('static', filename='css/icons/environmental-improvement.svg') }}" class="hg-panel-percent-belt-logo" alt="environmental-improvement">
+                        <span class="hg-panel-percent-text">환경개선</span>
+                        <span class="hg-panel-percent-num">45 %</span>
+                        <img src="{{ url_for('static', filename='css/icons/red_polygon.svg') }}" class="hg-panel-percent-belt-polygon" alt="red polygon">                        
+                    </div>                 
+                    <hr class="panel-line">                       
+                </div>
+                <div class="hg-panel-graph">
+                </div>
+            </div>
         </div>
 
 

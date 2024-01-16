@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, sessio
 from .db_manager import DBManager
 from .instance.db_config import *
 from werkzeug.security import check_password_hash
-import datetime
+from datetime import datetime, timedelta
 from markupsafe import escape
 
 
@@ -22,15 +22,66 @@ def login_user():
             # belts_data = db_manager.get_belts_image_data(user_id)
             # 메인 홈페이지 표시
             
-            login_time = db_manager.read(db= Database.Users, collection= Collection.User,\
-                key= Key.user_id, value= session["user_id"])["login_time"]
-            recent_belts_info = db_manager.get_user_recent_belts_image(session["user_id"])
+            # 현재 날짜와 시간 가져오기
+            today = datetime.now()
+
+            # 현재 요일 가져오기 (0: 월요일, 1: 화요일, ..., 6: 일요일)
+            current_weekday = today.weekday()
+
+            # 현재 날짜를 기준으로 주의 시작일 계산
+            start_of_week = today - timedelta(days=current_weekday)
+
+            # 주의 종료일 계산 (7일 더하기)
+            end_of_week = start_of_week + timedelta(days=6)
+
+            # 결과를 담을 딕셔너리 초기화
+            week_dict = {}
+            week_data = {}
+            week = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"]
+            week_1 = [1, 2, 3, 4, 5, 6, 7]
+            week_2 = [7, 6, 5, 4, 3, 2, 1]
+            count = 0
             
-            current_running_belts_number, all_belts_number = db_manager.get_user_running_belts(session["user_id"])
+            # 주의 각 날짜와 요일을 딕셔너리에 추가
+            current_date = start_of_week
+            while current_date <= end_of_week:
+                week_dict[current_date.strftime('%A')[:3]] = current_date.day
+                
+                if current_date.day == today.day:
+                    week_data["weekday"] = week[count]
+                current_date += timedelta(days=1)
+                count += 1
+
+            # 결과 출력
             
-            return render_template('main_login.html', recent_belts_info= recent_belts_info,\
-                username= session['user_id'], login_time= login_time,\
-                    current_running_belts_number= current_running_belts_number, all_belts_number= all_belts_number)
+            week_data["label"] = week
+            
+            week_data["var1"] = week_1
+            week_data["var2"] = week_2
+            
+            week_data["year"] = today.year
+            week_data["month"] = today.month
+            week_data["day"] = today.day
+            week_data["week"] = week_dict
+            print(week_data)
+                
+            
+
+            # 결과 출력
+            # print(f'오늘은 {today_weekday}이고, 이번주는 {this_week_formatted[0]}부터 {this_week_formatted[-1]}까지입니다.')
+            
+        
+            # login_time = db_manager.read(db= Database.Users, collection= Collection.User,\
+            #     key= Key.user_id, value= session["user_id"])["login_time"]
+            # recent_belts_info = db_manager.get_user_recent_belts_image(session["user_id"])
+            
+            # current_running_belts_number, all_belts_number = db_manager.get_user_running_belts(session["user_id"])
+            
+            # return render_template('main_login.html', recent_belts_info= recent_belts_info,\
+            #     username= session['user_id'], login_time= login_time,\
+            #         current_running_belts_number= current_running_belts_number, all_belts_number= all_belts_number)
+            
+            return render_template('main_login.html', username= session['user_id'], week_data= week_data)
         
         # 로그인 페이지 렌더링
         print("로그인되어 있지 않습니다!")

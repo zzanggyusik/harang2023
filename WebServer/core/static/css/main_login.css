@@ -1,3 +1,9 @@
+hr.panel-line{
+    width:100%;
+    border: dotted 1px;
+    color: gray;
+}
+
 .hg-main-container{
     width:100%;
     height:100%;
@@ -26,7 +32,7 @@
     font-family: "Pretendard-Regular";
     font-size: 5rem;
     font-style: normal;
-    font-weight: 800;
+    font-weight: 200;
     line-height: normal;
     align-items: center;
     display: flex;
@@ -176,6 +182,42 @@
     line-height: normal;    
 }
 
+.hg-today-week{
+    margin-right: 3rem;
+
+    width: 6rem;
+    height: 10rem;
+
+    border-radius: 6rem;
+    background: #25D776;;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hg-today-day-string {
+    margin-top: 1.2rem;
+
+    color: var(--unselected, white);
+    font-family: "Pretendard-Regular";
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.hg-today-day-num {
+    margin-bottom: 1.2rem;
+
+    color: var(--unselected_letters, white);
+    font-family: "Pretendard-Regular";
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;    
+}
+
 .hg-board-selector-container{
     margin-top: 6rem;
 
@@ -232,13 +274,102 @@
 }
 
 .hg-panel-container{
-    border-radius: 100px;
-    background: #FFF;
+    margin-top : 4rem;
 
+    width: 100%;
+    height: 100%;
+    border-radius: 8rem;
+    background: #FFF;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.hg-panel{
+    margin-top: 2.5rem;
+    width: 100%;
+    height: 70%;
+    /* background-color: blue; */
+    padding:1.5rem;
+
+    display:flex;
+    justify-content: space-between;
+
+}
+
+.hg-panel-percent{
+    padding: 1% 3%;
+
+    width: 48%; 
+    height: 100%;
+    /* background-color: yellow;     */
+
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hg-panel-percent-belt{
+    width: 100%;
+    height: 30%;
+    /* background-color: black; */
+    
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+
+}
+
+.hg-panel-percent-belt-logo{
+    width: 5rem;
+    height: 5rem;
+
+    margin-right: 2rem;
+}
+
+.hg-panel-percent-belt-polygon{
+    width: 3rem;
+    height: 3rem;
+}
+
+.hg-panel-percent-text{
+    margin-right: 6rem;
+
+    color: #52734B;
+    font-family: "Pretendard-Regular";
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.hg-panel-percent-num{
+    margin-right: 4rem;
+
+    color: #000;
+    font-family: "Pretendard-Regular";
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;    
+}
+
+.hg-panel-percent-line{
+    width:100%;
+    height: 3px;
+
+    stroke-width: 10px;
+    stroke: #ECECEC;
 }
 
 
+.hg-panel-graph{
+    width: 48%; 
+    height: 100%;
+    /* background-color: yellow;     */
+}
 
 .hg-dashboard-container{
     width:30%;
