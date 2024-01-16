@@ -4,6 +4,7 @@
 
 {% block content %}
 <link href="{{ url_for('static', filename='css/main_login.css') }}" rel="stylesheet">    
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <div class="hg-main-container">
 
@@ -83,7 +84,40 @@
                     </div>                 
                     <hr class="panel-line">                       
                 </div>
-                <div class="hg-panel-graph">
+
+                <div class="hg-panel-graph">                   
+                    <canvas id="myChart"></canvas>
+                    <script>
+                        const labels = {{ week_data.label|safe}};
+                        const data = {
+                          labels: labels,
+                          datasets: [{
+                            label: '지난주',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: {{ week_data.var1|safe}},
+                          },
+                          {
+                            label: '이번주',
+                            backgroundColor: 'rgb(0, 255, 0)',
+                            borderColor: 'rgb(0, 255, 0)',
+                            data: {{ week_data.var2|safe}},
+                          }]
+                        };
+                        
+                        const config = {
+                          type: 'line',
+                          data,
+                          options: {}
+                        };
+                        
+                        </script>
+                        <script>
+                          const myChart = new Chart(
+                            document.getElementById('myChart'),
+                            config
+                          );
+                        </script>
                 </div>
             </div>
         </div>

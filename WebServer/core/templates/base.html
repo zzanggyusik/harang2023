@@ -58,9 +58,24 @@
             </div>
           </li>
           <li class="mb-1">
-            <button class="btn btn-toggle d-inline-flex align-items-center border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#remote-collapse" aria-expanded="false">
+            <button class="btn btn-toggle d-inline-flex align-items-center border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#history-collapse" aria-expanded="false">
               <div class= "hg-sidebar-button">
                 <img src="{{ url_for('static', filename='css/icons/history.svg') }}" alt="history icons"/>
+                <span>History</span>
+              </div>
+            </button>
+            <div class="collapse" id="history-collapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li><a href="#">Overview</a></li>
+                <li><a href="#">Updates</a></li>
+                <li><a href="#">Reports</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="mb-1">
+            <button class="btn btn-toggle d-inline-flex align-items-center border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#remote-collapse" aria-expanded="false">
+              <div class= "hg-sidebar-button">
+                <img src="{{ url_for('static', filename='css/icons/remote.svg') }}" alt="remote icons"/>
                 <span>Remote</span>
               </div>
             </button>
@@ -71,7 +86,7 @@
                 <li><a href="#">Reports</a></li>
               </ul>
             </div>
-          </li>
+          </li>          
           <li class="mb-1">
             <button class="btn btn-toggle d-inline-flex align-items-center border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#forsale-collapse" aria-expanded="false">
               <div class= "hg-sidebar-button">
