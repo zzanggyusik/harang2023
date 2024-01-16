@@ -23,7 +23,7 @@ body {
 
 .left-div {
   flex: 0 0 15%;
-  background-color: gray;
+  /* background-color: gray; */
   float: left;
   font-size: 20px;
   text-align: center;
@@ -86,27 +86,31 @@ body {
 }
 
 .hg-sidebar-menu a{
-
+  display: flex;
+  margin-left: 1rem;
+  font-family: "Pretendard-Regular";
+  text-decoration: none;
+  color: #BCBCBC;
 }
 
 .hg-sidebar-menu button{
   width: 100%;
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
 }
 
 .hg-sidebar-menu img{
-  margin-left: 2rem;
+  margin-left: 1rem;
   margin-right: .7rem;
 }
 
 .hg-sidebar-button{
   width: 100%;
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 }
 
@@ -123,6 +127,8 @@ body {
 .btn-toggle:focus {
   color: rgba(var(--bs-emphasis-color-rgb), .85);
   background-color: var(--bs-tertiary-bg);
+  /* color: white;
+  background-color: #1BB25F; */
 }
 
 .btn-toggle::before {
@@ -139,6 +145,8 @@ body {
 
 .btn-toggle[aria-expanded="true"] {
   color: rgba(var(--bs-emphasis-color-rgb), .85);
+  color:white;
+  background-color: #1BB25F;
 }
 .btn-toggle[aria-expanded="true"]::before {
   transform: rotate(90deg);
