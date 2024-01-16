@@ -17,22 +17,26 @@ def show_history():
     for db in belts_db:
         collection = [col for col in db_manager.mongo_client[db].list_collection_names() if col not in "Config"]
         
-        thumbnail_dict = {}
+        history_data = {}
+        # thumbnail_dict = {}
         for col in collection:
-            
             # 콜렉션에 있는 도큐먼트 수 
             document_count = db_manager.mongo_client[db][col].estimated_document_count()
             
             if document_count <= 1:
-                thumbnail_dict[col]= db_manager.read(db= db, collection= col)
+                # thumbnail_dict[col]= db_manager.read(db= db, collection= col)
+                history_data[col] = db_manager.read(db= db, collection= col)
             
-            elif document_count < 6:
-                thumbnail_dict[col]= list(db_manager.read(db= db, collection= col, mode= Mode.MANY))
+            # elif document_count < 6:
+            #     thumbnail_dict[col]= list(db_manager.read(db= db, collection= col, mode= Mode.MANY))
                 
             else:
-                thumbnail_dict[col]= list(db_manager.read(db= db, collection= col, mode= Mode.MANY)[:6])
+                history_data[col] = list(db_manager.read(db= db, collection= col, mode= Mode.MANY))
+                # thumbnail_dict[col]= list(db_manager.read(db= db, collection= col, mode= Mode.MANY)[:6])
             
-            belts_thumbnail[db] = thumbnail_dict 
+            # belts_thumbnail[db] = thumbnail_dict 
+            belts_thumbnail[db] = history_data 
+            
                     
     print(f"belts thumbnail = {belts_thumbnail}")
     
