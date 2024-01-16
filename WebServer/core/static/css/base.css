@@ -1,3 +1,112 @@
+/* static/styles.css */
+
+.body {
+  height: 100vh;
+  min-height: -webkit-fill-available;
+  /* min-width: 100vh; */
+}
+
+.hg-wrapper-container {
+  display: flex;
+  height: 100vh;
+  text-align: center;
+}
+
+.left-div {
+  flex: 0 0 15%;
+  /* background-color: gray; */
+  float: left;
+}
+
+.right-div {
+  margin-top: 2rem;
+  flex: 1;
+  /* background-color: yellow; */
+  float: right;
+  overflow: hidden;
+}
+
+/* Add media query for responsiveness */
+/* @media screen and (max-width: 768px) {
+  .container {
+      flex-direction: column;
+  }
+
+  .left-div, .right-div {
+      flex: 1;
+      width: 100%;
+  }
+} */
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  min-width: 100vh;
+  /* font-size: 14px;
+  font-family: Pretendard-Regular;
+  background-color: white; */
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+.main {
+  height: 100vh;
+  height: -webkit-fill-available;
+  max-height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.dropdown-toggle { outline: 0; }
+
+.btn-toggle {
+  padding: .25rem .5rem;
+  font-weight: 600;
+  color: var(--bs-emphasis-color);
+  background-color: transparent;
+}
+.btn-toggle:hover,
+.btn-toggle:focus {
+  color: rgba(var(--bs-emphasis-color-rgb), .85);
+  background-color: var(--bs-tertiary-bg);
+}
+
+.btn-toggle::before {
+  width: 1.25em;
+  line-height: 0;
+  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+  transition: transform .35s ease;
+  transform-origin: .5em 50%;
+}
+
+[data-bs-theme="dark"] .btn-toggle::before {
+  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%28255,255,255,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+}
+
+.btn-toggle[aria-expanded="true"] {
+  color: rgba(var(--bs-emphasis-color-rgb), .85);
+}
+.btn-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.btn-toggle-nav a {
+  padding: .1875rem .5rem;
+  margin-top: .125rem;
+  margin-left: 1.25rem;
+}
+.btn-toggle-nav a:hover,
+.btn-toggle-nav a:focus {
+  background-color: var(--bs-tertiary-bg);
+}
+
+.scrollarea {
+  overflow-y: auto;
+}
+
+
 /* 폰트 불러오기 */
 @font-face {
     font-family: 'Pretendard-Regular';
@@ -5,15 +114,12 @@
     font-weight: 400;
     font-style: normal;
 }
-    
-.body{
-    font-family: Pretendard-Regular;
-}
 
     /* 페이지 wrapper */
 .row-wrapper {
     display: flex;
-    flex-direction: row;
+    text-align: center;
+    /* flex-direction: row; */
     /* background-color: green; */
 }
 
@@ -25,17 +131,18 @@
 
 .side-bar-container {
     width: 15%;
-    height: 100%;
+    float: left;
     border-right: 1px solid #000;
+    box-sizing: border-box;
+    /* display: inline-block; */
 }
 
 /* BASE - 타이틀 관련 CSS */
 .title-container{
-    margin-left: 40px;
-    margin-top: 40px;
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center; 
 }
+
 
 .title-image-container{
     margin-right: 40px;
@@ -48,8 +155,9 @@
 .title-text{
     /* padding-left: 00px; */
     color: #54AF67;
-    font-family: "Noto Serif";
-    font-size: 40px;
+    /* font-family: "Pretendard-Regular"; */
+    /* font-size: 40px; */
+    font-size : 2.5rem;
     font-style: normal;
     font-weight: 900;
     line-height: normal;
@@ -113,88 +221,3 @@
     line-height: 201.523%; /* 72.548px */
 }
 
-body, ul, li {
-    margin: 0;
-    padding: 0;
-    /* 해당 태그의 list-style을 none으로 하는 것으로 ●을 제거한다 */
-    list-style: none; 
-  }
-
-.sidebar {
-    width: 70%;
-    background-color: white;
-    padding: 10px;
-    margin: auto;
-    text-align: center;
-  }
-
-  .menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .menu-item {
-    margin-bottom: 70px;
-  }
-
-  .menu-item a {
-    display: block;
-    /* text-decoration: none; */
-    /* background-color: #1BB25F; */
-    color: black;
-    text-align: center;
-    font-family: "Pretendard-Regular";
-    font-size: 24px;
-    line-height: 201.523%;
-  }
-
-  .menu-item a::after {
-    content: url("icons/up_arrow.png"); /* 기본 화살표 이미지 */
-    float: right;
-  }
-
-  .menu-item a:hover::after {
-    content: url('icons/down_arrow.png'); /* 호버 시 위로 향하는 화살표 이미지 */
-    float: right;
-  }  
-
-  .submenu {
-    display: none;
-    margin-left: 10px;
-    /* position: relative; */
-    top: calc(100% - 1px);
-    left: 0;
-  }
-  
-  .menu-item:hover .submenu {
-    display: block; /* 호버 시 2차 메뉴 표시 */
-  }
-  
-  /* 아이콘이 2차 메뉴에 적용되지 않도록 수정 */
-  .submenu a::after {
-    content: none;
-  }  
-
-  .expanded {
-    display: block;
-  }
-
-
-  @media (max-width: 768px) {
-    .row-wrapper {
-        flex-direction: column;
-    }
-
-    .side-bar-container {
-        width: 100%;
-        border-right: none;
-    }
-
-    .content-container {
-        width: 100%;
-    }
-
-    /* 다른 요소들의 반응형 CSS 스타일 추가 */
-    /* 여기에 필요한 스타일을 추가하세요 */
-}

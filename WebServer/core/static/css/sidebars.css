@@ -1,6 +1,7 @@
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
+  font-size: 14px;
 }
 
 html {
@@ -13,6 +14,10 @@ main {
   max-height: 100vh;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+.title-text {
+  font-size : .2rem;
 }
 
 .dropdown-toggle { outline: 0; }
