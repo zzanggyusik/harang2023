@@ -1,6 +1,15 @@
 /* static/styles.css */
+html {
+  font-size: 16px;
+  height: 100vh;
+  height: -webkit-fill-available;
+  font-family: "Pretendard-Regular";
+  /* max-height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;   */
+}
 
-.body {
+body {
   height: 100vh;
   min-height: -webkit-fill-available;
   /* min-width: 100vh; */
@@ -9,55 +18,98 @@
 .hg-wrapper-container {
   display: flex;
   height: 100vh;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .left-div {
   flex: 0 0 15%;
-  /* background-color: gray; */
+  background-color: gray;
   float: left;
+  font-size: 20px;
+  text-align: center;
+  /* justify-content: center; */
+  align-items: center;
 }
 
 .right-div {
-  margin-top: 2rem;
+  /* margin-left: 1rem;
+  margin-top: 2rem; */
+  padding: 1.5rem;
   flex: 1;
   /* background-color: yellow; */
   float: right;
   overflow: hidden;
 }
 
-/* Add media query for responsiveness */
-/* @media screen and (max-width: 768px) {
-  .container {
-      flex-direction: column;
-  }
-
-  .left-div, .right-div {
-      flex: 1;
-      width: 100%;
-  }
-} */
-
-body {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-  min-width: 100vh;
-  /* font-size: 14px;
-  font-family: Pretendard-Regular;
-  background-color: white; */
+.title-container{
+  display: inline-block;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-html {
-  height: -webkit-fill-available;
+.hg-sidebar-profile-container{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.main {
-  height: 100vh;
-  height: -webkit-fill-available;
-  max-height: 100vh;
-  overflow-x: auto;
-  overflow-y: hidden;
+.hg-sidebar-profile-container img{
+  /* width: 20rem;
+  height: 20rem; */
+  border-radius: 50%; /* 이미지를 원 모양으로 만듦 */
+  /* max-width: 70%; 이미지가 부모 요소를 넘어가지 않도록 설정   */
+  padding: 2rem;
 }
+
+.hg-sidebar-profile-container span{
+  width: 50%;
+  height: 3rem;
+  margin-top: -1rem;
+  border-radius: 2rem; /* 텍스트 컨테이너의 둥근 사각형을 위한 테두리 반지름 설정 */
+  background-color: #1BB25F; /* 텍스트 컨테이너의 배경색 지정 */
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color:white;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.hg-sidebar-menu{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hg-sidebar-menu span{
+  font-size : 1.5rem;
+}
+
+.hg-sidebar-menu a{
+
+}
+
+.hg-sidebar-menu button{
+  width: 100%;
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hg-sidebar-menu img{
+  margin-left: 2rem;
+  margin-right: .7rem;
+}
+
+.hg-sidebar-button{
+  width: 100%;
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .dropdown-toggle { outline: 0; }
 
@@ -115,20 +167,6 @@ html {
     font-style: normal;
 }
 
-    /* 페이지 wrapper */
-.row-wrapper {
-    display: flex;
-    text-align: center;
-    /* flex-direction: row; */
-    /* background-color: green; */
-}
-
-.column-wrapper {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
-
 .side-bar-container {
     width: 15%;
     float: left;
@@ -138,11 +176,6 @@ html {
 }
 
 /* BASE - 타이틀 관련 CSS */
-.title-container{
-  display: flex;
-  align-items: center; 
-}
-
 
 .title-image-container{
     margin-right: 40px;
@@ -157,7 +190,7 @@ html {
     color: #54AF67;
     /* font-family: "Pretendard-Regular"; */
     /* font-size: 40px; */
-    font-size : 2.5rem;
+    font-size :2.5rem;
     font-style: normal;
     font-weight: 900;
     line-height: normal;
@@ -221,3 +254,42 @@ html {
     line-height: 201.523%; /* 72.548px */
 }
 
+/* body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  min-width: 100vh;
+  /* font-size: 14px;
+  font-family: Pretendard-Regular;
+  background-color: white;
+}
+
+html {
+  height: -webkit-fill-available;
+} */
+
+/* 페이지 wrapper */
+/*.row-wrapper {
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+    background-color: green;
+}
+
+.column-wrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+*/
+
+/* Add media query for responsiveness */
+/* @media screen and (max-width: 768px) {
+  .container {
+      flex-direction: column;
+  }
+
+  .left-div, .right-div {
+      flex: 1;
+      width: 100%;
+  }
+} */
