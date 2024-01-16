@@ -1,7 +1,6 @@
 /* static/styles.css */
 html {
   font-size: 1.1vh;
-  height: 100vh;
   height: -webkit-fill-available;
   font-family: "Pretendard-Regular";
   /* max-height: 100vh;
@@ -10,14 +9,13 @@ html {
 }
 
 body {
-  height: 100vh;
   min-height: -webkit-fill-available;
   /* min-width: 100vh; */
 }
 
 .hg-wrapper-container {
   display: flex;
-  height: 100vh;
+  /* height: 100vh; */
   /* text-align: center; */
 }
 
@@ -38,7 +36,7 @@ body {
   flex: 1;
   /* background-color: yellow; */
   float: right;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .title-container{

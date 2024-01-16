@@ -402,7 +402,7 @@ span.dashboard-text{
 
 .hg-dashboard-container{
     width:30%;
-    height: 100vh;
+    height: auto;
     margin-left: 3rem;
     margin-right: 1.5rem;
     background-color: #BFE8DE;;
