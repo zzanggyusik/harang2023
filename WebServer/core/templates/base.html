@@ -6,44 +6,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/base.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/history.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/remote.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/remote_detail.css') }}" rel="stylesheet">
-
-    <title>{% block title %}Default Title{% endblock %}</title>
-</head>
-
-<body>
-    <div class="wrapper">
-        <a href = "/">
-        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" class="img-fluid mb-3 mt-4 ml-4">
-        </a>
-        
-        {% if request.endpoint != 'register' and ((request.endpoint == 'home') or (request.endpoint != 'home'))%}
-        <!-- 네비게이션 바 -->
-        <div class="navbar-top-right">
-            <a href="{{ url_for('remote.show_remote') }}">Remote</a> <span class="mx-2">|</span>
-            <a href="{{ url_for('history.show_history') }}">History</a></span> <span class="mx-2">|</span>
-            <span class="text-muted">Search</span> <span class="mx-2">|</span>
-            <span class="text-muted">My Page</span>
-        </div>
-        {% endif %}
-        
-        <div class="content-container">
-            {% block content %}{% endblock %}
-        </div>
-
-        {% if session.get["user_id"] is not none %}
-            <div class="logout-link-container">
-                <a href="/logout">로그아웃</a>
-            </div>
-        {% endif %}
-    </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
 
-</html>
+    <link href="{{ url_for('static', filename='css/base.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/history.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/remote.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/remote_detail.css') }}" rel="stylesheet">
+    <!--<link href="{{ url_for('static', filename='css/sidebars.css') }}" rel="stylesheet">-->
+
+    <title>{% block title %}Default Title{% endblock %}</title>
+
+    <style>
+        body {
+          background-color: white; /* 전체 페이지의 배경색을 흰색으로 설정 */
+        }
+    </style>   
+     
+</head>
+
+<body>
+  <div class = "hg-wrapper-container">
+    <div class = "left-div">
+      <div class="flex-shrink-0 p-3" style="width: 280px;">
+        <a href="/" class="title-container">
+          <img src="static\main_icons.svg" alt="Main Icons"/>
+          <span class="title-text">X-Farm</span>
+        </a>
+        <ul class="list-unstyled ps-0">
+          <li class="mb-1">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+              HOME
+            </button>
+            <div class="collapse show" id="home-collapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Overview</a></li>
+                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Updates</a></li>
+                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Reports</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="mb-1">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+              History
+            </button>
+            <div class="collapse" id="dashboard-collapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Overview</a></li>
+                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Weekly</a></li>
+                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Monthly</a></li>
+                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Annually</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="mb-1">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+              Remote
+            </button>
+            <div class="collapse" id="orders-collapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">New</a></li>
+                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Processed</a></li>
+                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Shipped</a></li>
+                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Returned</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="border-top my-3"></li>
+          <li class="mb-1">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+              For Sale
+            </button>
+            <div class="collapse" id="account-collapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">New...</a></li>
+                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Profile</a></li>
+                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Settings</a></li>
+                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Sign out</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+  </div>
+    <div class = "right-div"> 
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    <script src="https://getbootstrap.com/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='javascript/sidebars.js') }}"></script>
+</body>

@@ -7,14 +7,21 @@
     {% for col, doc in collection.items() %}
         <div class="belt-group">
             <div class="belt-header">
-                Running Logs({{ database }}_{{ col }})
+                <a href= "{{ url_for('history.history_detail', db= database, col= col) }}">
+                    Running Logs - ({{ database }}_{{ col }})
+                </a>
             </div>
-        <div class="belt-images">
-            <div class="image-box">
-                <img src="{{ doc.img_path }}" alt="Belt Image">
+            
+            <div class= "belt-images">
+            {% for data in doc %}
+                <div class= "image-box">
+                    <img src="{{ data.img_path }}" alt="Belt Image">
+                </div>
+            {% endfor %}
             </div>
-        {% endfor %}
         </div>
-    </div>
+    {% endfor %}
 {% endfor %}
+
+
 {% endblock %}

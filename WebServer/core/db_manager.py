@@ -39,7 +39,7 @@ class DBManager:
                 return self.mongo_client.list_database_names()
             
         except:
-            return "DB Read: Error Occuarred"
+            return "DB Read: Error Occurred"
     
     def update(self, db, collection, key_where, value_where, \
                 key_set, value_set):
@@ -92,6 +92,11 @@ class DBManager:
                 current_running_belts_number += 1
                 
         return current_running_belts_number, len(user_convayor_belts)
+        
+    
+    def get_user_belts_images(self, database, collection):
+        return 
+        pass
         
     
     # 사용자 추가
@@ -163,4 +168,4 @@ class DBManager:
 
     # # 사용자 아이디를 통한 사용자 벨트조회
     # def find_belt_by_name_and_user_id(self, belt_name, user_id):
-    #     return self.belt_db.find_one({'belt_name': belt_name, 'user_id': ObjectId(user_id)})
+    #     return self.belt_db.find_one({'belt_name': belt_name, 'user_id': ObjectId(user_id)}
